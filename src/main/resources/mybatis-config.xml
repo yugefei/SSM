@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <properties>
+        <!--图片基地址-->
+        <property name="imgRoot" value="'http://img.blackstone.ebirdnote.cn/'"/>
+    </properties>
+
+    <settings>
+        <!-- changes from the defaults -->
+        <setting name="lazyLoadingEnabled" value="false"/>
+            <setting name="logImpl" value="LOG4J"/>
+    </settings>
+
+
+    <!--别名在这里定义-->
+    <!--<typeAliases>-->
+        <!--<typeAlias alias="testUserDto" type="com.yst.dto.TestUserDto"/>-->
+    <!--</typeAliases>-->
+
+</configuration>
