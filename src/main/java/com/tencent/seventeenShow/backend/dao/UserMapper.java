@@ -27,8 +27,8 @@ public interface UserMapper {
     ArrayList<User> getFriends(@Param("userId")Long userId);
     User startMatch(@Param("userId") Long userId);
     int fillInResume(@Param("user")User user);
-    int frisLogin(@Param("accessToken") String accessToken, @Param("openId") String openId, @Param("token")String token,
-                  @Param("expire")Long expire);
+    int firstLogin(@Param("accessToken") String accessToken, @Param("openId") String openId, @Param("token")String token,
+                   @Param("expire")Long expire);
     Token findTokenByOpenId(@Param("openId")String openId);
     int updateToken(@Param("openId")String openId, @Param("newToken")String newToken, @Param("expire")long expire);
     int updateExpire(@Param("openId")String openId,@Param("expire")long expire);

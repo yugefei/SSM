@@ -102,7 +102,7 @@ public class UserServiceImpl  implements UserService{
 
     @Override
     public boolean firstLogin(String accessToken, String openId, String token, long expire) {
-        if(userMapper.frisLogin(accessToken,openId,token,expire)>=1)
+        if(userMapper.firstLogin(accessToken,openId,token,expire)>=1)
         return true;
         return false;
     }
