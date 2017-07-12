@@ -321,7 +321,7 @@
 
     </dependencies>
     <build>
-        <finalName>v1</finalName>
+        <finalName>17show</finalName>
         <resources>
             <resource>
                 <directory>src/main/java</directory>
