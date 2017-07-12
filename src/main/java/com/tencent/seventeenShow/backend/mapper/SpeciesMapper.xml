@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tencent.seventeenShow.backend.dao.SpeciesMapper">
+    <resultMap id="listMap" type="Species">
+        <id column="id" property="id"/>
+        <result property="chineseName" column="chinese_name"/>
+        <result property="englishName" column="english_name"/>
+        <result property="latinName" column="latin_name"/>
+        <result property="mainPhoto" column="main_photo"/>
+        <result property="speciesType" column="species_type"/>
+        <result property="order" column="order"/>
+        <result property="orderLatin" column="order_latin"/>
+        <result property="familyLatin" column="family_latin"/>
+
+    </resultMap>
+    <resultMap id="baseMap" type="Species">
+        <id column="id" property="id"/>
+        <result property="chineseName" column="chinese_name"/>
+        <result property="latinName" column="latin_name"/>
+        <result property="englishName" column="english_name"/>
+        <result property="mainPhoto" column="main_photo"/>
+        <result property="featureImage" column="feature_image"/>
+        <result property="speciesType" column="species_type"/>
+    </resultMap>
+
+    <resultMap id="speciesWithFeatures" type="Species">
+        <id column="id" property="id"/>
+        <result property="chineseName" column="chinese_name"/>
+        <result property="latinName" column="latin_name"/>
+        <result property="orderLatin" column="order_latin"/>
+        <result property="englishName" column="english_name"/>
+        <result property="familyLatin" column="family_latin"/>
+        <result property="genusLatin" column="genus_latin"/>
+        <result property="mainPhoto" column="main_photo"/>
+        <result property="featureImage" column="feature_image"/>
+        <result property="speciesType" column="species_type"/>
+        <result property="collected" column="in_collection"/>
+        <association property="features" column="{featureId=feature_id,speciesType=species_type}"
+                     select="com.tencent.seventeenShow.backend.dao.SpeciesMapper.getFeatures"/>
+        <association property="imgs" column="{thirdId=id,thirdType=_thirdType}"
+                     select="com.tencent.seventeenShow.backend.dao.ImageMapper.getImage"/>
+    </resultMap>
+    <insert id="addSpeciesToFavorite" parameterType="String">
+        INSERT INTO `user_collection` (user_id, species_id, create_time) VALUE (#{userId}, #{speciesId}, NOW());
+    </insert>
+
+    <delete id="removeCollection">
+        DELETE FROM user_collection
+        WHERE species_id = #{speciesId} AND user_id = #{userId}
+    </delete>
+
+    <insert id="addSpeciesToObservationList" parameterType="String">
+        INSERT INTO `user_observation_list` (user_id, species_id, create_time) VALUE (#{userId}, #{speciesId}, NOW());
+    </insert>
+
+    <select id="speciesBaseInfo" resultMap="baseMap">
+        SELECT
+            id,
+            latin_name,
+            chinese_name,
+            family,
+            genus,
+            english_name,
+            species_type
+        FROM species
+        WHERE id = #{species_id};
+    </select>
+
+
+
+    <select id="getSpeciesInfo" resultMap="speciesWithFeatures" parameterType="Long">
+        SELECT
+            id,
+            chinese_name,
+            latin_name,
+            english_name,
+            order_latin,
+            genus_latin,
+            family_latin,
+            `order`,
+            family,
+            genus,
+            description,
+            feature_image,
+            species_type,
+            feature_id,
+            cc.collected collected,
+            'species' AS _thirdType
+        FROM species, (select count(1) collected from user_collection where user_id = #{userId} and species_id = #{speciesId}) cc
+        WHERE id = #{speciesId};
+    </select>
+
+    <select id="getFeatures" resultType="Map" parameterType="Map">
+        SELECT *
+        FROM feature_${speciesType}
+        WHERE id = #{featureId};
+    </select>
+
+    <select id="featureTypes" resultType="String" parameterType="String">
+        SELECT COLUMN_NAME
+        FROM information_schema.COLUMNS
+        WHERE table_name = 'feature_${type}'
+    </select>
+
+    <select id="features" resultType="String" parameterType="String">
+        SELECT DISTINCT ${feature}
+        FROM feature_${type}
+    </select>
+
+    <select id="selectLong" resultType="Long" parameterType="Long">
+        SELECT #{param};
+    </select>
+
+    <select id="userCollection" resultMap="listMap" parameterType="Long">
+        SELECT
+            s.id                              id,
+            chinese_name,
+            english_name,
+            latin_name,
+            species_type,
+            `order`,
+            family,
+            genus,
+            concat(${imgRoot}, main_photo) AS main_photo
+        FROM species s RIGHT JOIN user_collection uc ON species_id = s.id
+        WHERE uc.user_id = #{userId};
+    </select>
+
+    <select id="userObservation" resultMap="listMap" parameterType="Long">
+        SELECT
+            s.id                              id,
+            chinese_name,
+            latin_name,
+            concat(${imgRoot}, main_photo) AS main_photo
+        FROM species s RIGHT JOIN user_observation_list uc ON species_id = s.id
+        WHERE uc.user_id = #{userId};
+    </select>
+
+    <select id="allSpecies" resultMap="listMap">
+        SELECT
+            id,
+            concat(${imgRoot}, main_photo) AS main_photo,
+            `order`,
+            family,
+            order_latin,
+            family_latin,
+            latin_name,
+            chinese_name,
+            species_type,
+            english_name
+        FROM species
+    </select>
+
+    <select id="search" resultMap="listMap">
+        SELECT
+            id,
+            concat(${imgRoot}, main_photo) AS main_photo,
+            `order`,
+            family,
+            latin_name,
+            chinese_name,
+            species_type
+        FROM species
+        WHERE
+            chinese_name like concat('%',#{key},'%') or latin_name like concat('%',#{key},'%')
+    </select>
+    <!--<select id="getWorkerByCityId" resultMap="workerMap">-->
+    <!--select code,`name`,`level`,photo,user_id,phone,company,id_code,`type` from worker_info where city_id = #{cityId};-->
+    <!--</select>-->
+
+    <select id="featureQuery" resultMap="listMap">
+        select s.id id,concat(${imgRoot},main_photo) as main_photo,`order`,order_latin,family, family_latin,latin_name, english_name,chinese_name,species_type
+        from species s RIGHT join feature_${type} f on f.species_id = s.id
+        <where>
+            <foreach collection="features.keys" separator=" and " item="key">
+                <foreach collection="features[key]" separator=" or " item="feature" open="(" close=")">
+                    ${key} = #{feature}
+                </foreach>
+            </foreach>
+        </where>
+    </select>
+
+    <select id="insects" resultMap="listMap">
+        select id,concat(${imgRoot},cut_img) as main_photo,`order`,family,latin_name,chinese_name,species_type
+        from species
+        where species_type = 'insect'
+    </select>
+</mapper>

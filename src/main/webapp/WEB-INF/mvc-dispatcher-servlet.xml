@@ -29,7 +29,7 @@
     http://www.springframework.org/schema/mvc
     http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
-    <bean id="propertyConfigurer" class="cn.edu.njue.blackStone.backend.common.GlobalPropertiesConfigurer" lazy-init="false">
+    <bean id="propertyConfigurer" class="com.tencent.seventeenShow.backend.common.GlobalPropertiesConfigurer" lazy-init="false">
         <property name="order" value="1"/>
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
         <property name="locations">
@@ -70,7 +70,7 @@
 
     <aop:aspectj-autoproxy />
     <!--包搜索路径-->
-    <context:component-scan base-package="cn.edu.njue.blackStone.backend.mapper,cn.edu.njue.blackStone.backend.controller,cn.edu.njue.blackStone.backend.service.impl"/>
+    <context:component-scan base-package="com.tencent.seventeenShow.backend.mapper,com.tencent.seventeenShow.backend.controller,com.tencent.seventeenShow.backend.service.impl"/>
     <aop:config proxy-target-class="true"/>
 
     <!--自动请求数据解析/路由配置-->
@@ -94,12 +94,12 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <!--<property name="configurationProperties" value="classpath:mybatis-properties" />-->
-        <property name="mapperLocations" value="classpath:cn/edu/njue/blackStone/backend/mapper/**/*.xml"/>
-        <property name="typeAliasesPackage" value="cn.edu.njue.blackStone.backend.model"/>
+        <property name="mapperLocations" value="classpath:com/tencent/seventeenShow/backend/mapper/**/*.xml"/>
+        <property name="typeAliasesPackage" value="com.tencent.seventeenShow.backend.model"/>
 
     </bean>
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="cn.edu.njue.blackStone.backend.dao"/>
+        <property name="basePackage" value="com.tencent.seventeenShow.backend.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
     <!--mybatis configuration end-->

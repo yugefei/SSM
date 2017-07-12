@@ -7,7 +7,7 @@
 
     <properties>
         <!--图片基地址-->
-        <property name="imgRoot" value="'http://img.blackstone.ebirdnote.cn/'"/>
+        <!--<property name="imgRoot" value="'http://img.blackstone.ebirdnote.cn/'"/>-->
     </properties>
 
     <settings>

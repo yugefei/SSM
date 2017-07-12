@@ -8,17 +8,17 @@
      http://www.springframework.org/schema/mvc
      http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
     <mvc:interceptors>
-<!--
-        <mvc:interceptor>
+
+        <!--<mvc:interceptor>-->
             <!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
             <!--设置所有请求返回content-type 为 application/json-->
-            <mvc:mapping path="/**" />
+            <!--<mvc:mapping path="/**" />-->
             <!--对于个别其他类型,如静态 可使用-->
             <!--<mvc:exclude-mapping path="/**"/>-->
-            <bean class="cn.edu.njue.blackStone.backend.interceptor.ContentTypeInterceptor" />
-        </mvc:interceptor>
+            <!--<bean class="com.tencent.seventeenShow.backend.interceptor.ContentTypeInterceptor" />-->
+        <!--</mvc:interceptor>-->
         <!-- 当设置多个拦截器时，先按顺序调用preHandle方法，然后逆序调用每个拦截器的postHandle和afterCompletion方法 -->
-      -->
+
 
         <mvc:interceptor>
             <!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
@@ -34,7 +34,7 @@
             <mvc:mapping path="/record/**"/>
             <mvc:mapping path="/feedback/new"/>
             <mvc:mapping path="/upload/**"/> -->
-            <bean class="cn.edu.njue.blackStone.backend.interceptor.AuthInterceptor" />
+            <bean class="com.tencent.seventeenShow.backend.interceptor.AuthInterceptor" />
         </mvc:interceptor>
         <!-- 当设置多个拦截器时，先按顺序调用preHandle方法，然后逆序调用每个拦截器的postHandle和afterCompletion方法 -->
     </mvc:interceptors>

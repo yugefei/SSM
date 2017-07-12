@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tencent.seventeenShow.backend.dao.UserMapper">
+    <resultMap id="userMap" type="User">
+        <id property="id" column="id"/>
+        <result property="studentId" column="student_id"/>
+    </resultMap>
+    <!--List<MaterialCategory> getAllCategory();-->
+    <!--List<Material> getMaterialByCategoryId(@Param("cid")Long categoryId);-->
+
+
+
+    <!--<select id="login" resultMap="baseMap" parameterType="String">-->
+        <!--select id,open_id,nick_name,sex,city_id,avatar,phone,real_name,`character`,address,login_name-->
+        <!--from `user`-->
+        <!--where open_id=#{openId};-->
+    <!--</select>-->
+    <!--<update id="bindOpenId" parameterType="String">-->
+        <!--update `user` set open_id = #{openId} where id = #{userId};-->
+    <!--</update>-->
+
+    <!--<update id="unbundingByOpenId" parameterType="String">-->
+        <!--update `user` set open_id = null where open_id = #{open_id};-->
+    <!--</update>-->
+
+
+    <!--<update id="unbunding" parameterType="Long">-->
+        <!--update `user` set open_id = null where id = #{userId};-->
+    <!--</update>-->
+    <select id="loginByNameAndPwd" resultMap="userMap" parameterType="String">
+        select id, avatar,mobile,nickname,gender,birthday,username
+        from `user`
+        where (lower(username)=lower(#{loginName}) or lower(mobile) = lower(#{loginName})) and pwd = #{password};
+    </select>
+    <select id="studentIdRegistered" resultType="int" parameterType="String">
+        select count(1)
+        from `user`
+        where lower(username) = lower(#{username});
+    </select>
+    <select id="mobileOccupied" resultType="int" parameterType="String">
+        select count(1)
+        from `user`
+        where lower(mobile) = lower(#{username});
+    </select>
+
+    <insert id="register" parameterType="com.tencent.seventeenShow.backend.model.User">
+        insert into `user`(
+          mobile,username,nickname,gender,pwd,create_time
+        )values(
+          #{nu.mobile},#{nu.studentId},#{nu.name},#{nu.gender},#{pwd},now()
+        )
+    </insert>
+    <update id="setPwd">
+        update `user` set  pwd=#{pwd} where mobile = #{id}
+    </update>
+
+    <select id="checkIdAndName" resultType="int">
+        select count(1)
+        FROM student_information
+        WHERE student_id = #{studentId} and `name` = #{name}
+    </select>
+    <!--<select id="getWorkerByCityId" resultMap="workerMap">-->
+        <!--select code,`name`,`level`,photo,user_id,phone,company,id_code,`type` from worker_info where city_id = #{cityId};-->
+    <!--</select>-->
+    <update id="setAvatar">
+        UPDATE user set avatar = #{avatarUrl} where id = #{userId}
+    </update>
+
+    <update id="setPwdWithOrigin">
+        UPDATE user SET pwd = #{newPwd} where id = #{userId} and pwd = #{oriPwd}
+    </update>
+
+    <update id="rebundingMobile">
+        UPDATE user SET mobile = #{mobile} where id = #{userId}
+    </update>
+
+    <update id="extendTime">
+    UPDATE userPrivilege SET diamondBalances = diamondBalance-2 where id = #{userId}
+    </update>
+
+    <update id="buyFilter">
+        UPDATE userPrivilege SET diamondBalances = diamondBalance+2 where id = #{userId}
+    </update>
+
+    <update id="clickLike">
+        UPDATE userPrivilege SET loveBalances = loveBalances+1 where id = #{userId}
+    </update>
+
+    <update id="clickDislike">
+        UPDATE userPrivilege SET dislikeBalances = dislikeBalances-1 where id = #{userId}
+    </update>
+
+    <select id="getPrivilegeByName" resultType="Privilege" parameterType="Long">
+        select count(1)
+        from userPrivilege
+        where lower(username) = lower(#(username));
+    </select>
+
+    <select id="getResume" resultType="User" parameterType="int">
+        select id, avatar,mobile,nickname,gender,birthday,username
+        from `user`
+        where id = #{userId}
+    </select>
+    <select id="getFriends" resultType="User" parameterType="int">
+        select id, avatar,mobile,nickname,gender,birthday,username
+        from `user`
+        where id = #{userId}
+    </select>
+
+    <select id="startMatch" resultType="User" parameterType="Long">
+        select id, avatar,mobile,nickname,gender,birthday,username
+        from `user`
+        where id = #{userId}
+    </select>
+    <insert id="fillInResume" parameterType="com.tencent.seventeenShow.backend.model.User">
+        insert into `user`(
+        mobile,username,nickname,gender,pwd,create_time
+        )values(
+        #{nu.mobile},#{nu.studentId},#{nu.name},#{nu.gender},#{pwd},now()
+        )
+    </insert>
+
+
+
+
+
+
+
+    <insert id="firstLogin" parameterType="String">
+        insert into `token_list`(
+        accessToken,openId,token,expire,create_time
+        )values(
+        #{accessToken},#{openId},#{token},#{expire},now()
+        )
+    </insert>
+
+    <select id="findTokenByOpenId" resultType="Token" parameterType="String">
+        select token, expire,accessToken
+        from `token_list`
+        where openId = #{openId}
+    </select>
+
+    <update id="updateToken">
+        UPDATE token_list SET token = #{newToken} and SET expire = #{expire} where openId = #{openId}
+    </update>
+
+    <update id="upDateExpire">
+        UPDATE token_list SET expire = #{expire} where openId = #{openId}
+    </update>
+
+
+
+
+
+
+
+
+</mapper>
