@@ -93,7 +93,7 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
     public Response<LoginVo> firstLogin(@RequestBody LoginForm form){
-        if(userService.findTokenByOpenId(form.getOpenId()).getToken()!=null)
+        if(userService.findTokenByOpenId(form.getOpenId())!=null)
         {
             String token = userService.findTokenByOpenId(form.getOpenId()).getToken();
 
@@ -116,7 +116,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public Response<String> refreshToken(@RequestBody OAuthForm form) {
         long timeInterval = 24 * 60 * 60 * 1000;
-        if (userService.findTokenByOpenId(form.getOpenId()).getToken() != null) {
+        if (userService.findTokenByOpenId(form.getOpenId())!= null) {
             String tokenByFind = userService.findTokenByOpenId(form.getOpenId()).getToken();
 
             //重放攻击
