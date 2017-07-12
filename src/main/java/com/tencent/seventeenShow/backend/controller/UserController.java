@@ -105,7 +105,7 @@ public class UserController extends BaseController {
         String token = Utils.getHash(tokenAndId);
         long timeInterval = 24 * 60 * 60 * 1000 ;
         long expire = System.currentTimeMillis() + timeInterval;
-        userService.firstLogin(form.getAccessToken(), form.getOpenId(), token, expire);
+        userService.firstLogin(form.getAccessToken(), form.getOpenId(), token, 0);
         return new Response<LoginVo>(new LoginVo(token, false));
 
     }
