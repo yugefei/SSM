@@ -125,7 +125,7 @@ public class UserController extends BaseController {
 
             //数据被篡改
             String accessToken = userService.findTokenByOpenId(form.getOpenId()).getAccessToken();
-            String md = accessToken.substring(0, 17) + form.getOpenId().substring(17) + form.getTimestamp();
+            String md = accessToken.substring(0, 16) + form.getOpenId().substring(17) + form.getTimestamp();
             if (!form.getCheckSum().equals(Utils.MD5(md))) {
                 return new Response<String>(ResultCode.FALSIFY_DATA, "数据被篡改");
             }
@@ -137,7 +137,7 @@ public class UserController extends BaseController {
                 long expire = System.currentTimeMillis() + timeInterval;
                 userService.updateToken(form.getOpenId(), newToken, expire);
 
-                return new Response<String>(ResultCode.OK_CODE, "新的token", newToken);
+                return new Response<String>(newToken);
             }
 
             long expire = userService.findTokenByOpenId(form.getOpenId()).getExpire() + timeInterval;
