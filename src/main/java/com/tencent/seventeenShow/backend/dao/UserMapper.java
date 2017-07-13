@@ -31,8 +31,8 @@ public interface UserMapper {
     int firstLogin(@Param("accessToken") String accessToken, @Param("openId") String openId, @Param("token")String token,
                    @Param("expire")Date expire);
     Token findTokenByOpenId(@Param("openId")String openId);
-    int updateToken(@Param("openId")String openId, @Param("newToken")String newToken, @Param("expire")long expire);
-    int updateExpire(@Param("openId")String openId,@Param("expire")long expire);
+    int updateToken(@Param("openId")String openId, @Param("newToken")String newToken, @Param("expire")Date expire);
+    int updateExpire(@Param("openId")String openId,@Param("expire")Date expire);
 
     int studentIdRegistered(@Param("username")String studentId);
     int mobileOccupied(@Param("username")String mobile);

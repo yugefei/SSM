@@ -114,14 +114,14 @@ public class UserServiceImpl  implements UserService{
     }
 
     @Override
-    public boolean updateToken(String openId, String newToken, long expire) {
+    public boolean updateToken(String openId, String newToken, Date expire) {
        if(userMapper.updateToken(openId,newToken,expire)>=1)
            return true;
        return false;
     }
 
     @Override
-    public boolean updateExpire(String openId, long expire) {
+    public boolean updateExpire(String openId, Date expire) {
         if(userMapper.updateExpire(openId,expire)>=1)
             return true;
         return false;

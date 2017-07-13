@@ -36,8 +36,8 @@ public interface UserService {
 
     Token findTokenByOpenId(String openId);
 
-    boolean updateToken(String openId,String newToken, long expire);
-    boolean updateExpire(String openId,long expire);
+    boolean updateToken(String openId,String newToken, Date expire);
+    boolean updateExpire(String openId,Date expire);
 
     boolean userNameTaken(String userName);
 

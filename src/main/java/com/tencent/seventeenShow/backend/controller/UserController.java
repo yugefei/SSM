@@ -136,13 +136,13 @@ public class UserController extends BaseController {
                 String tmp = form.getOpenId() + userService.findTokenByOpenId(form.getOpenId()).getAccessToken() + System.currentTimeMillis();
                 String newToken = Utils.getHash(tmp);
                 long expire = System.currentTimeMillis() + timeInterval;
-                userService.updateToken(form.getOpenId(), newToken, expire);
+                userService.updateToken(form.getOpenId(), newToken, new Date(expire));
 
                 return new Response<String>(newToken);
             }
 
             long expire = userService.findTokenByOpenId(form.getOpenId()).getExpire() + timeInterval;
-            userService.updateExpire(form.getOpenId(),expire);
+            userService.updateExpire(form.getOpenId(),new Date(expire));
 
             return new Response<String>(ResultCode.OK_CODE, "success", userService.findTokenByOpenId(form.getOpenId()).getToken());
         }
