@@ -126,7 +126,7 @@ public class UserController extends BaseController {
             //数据被篡改
             String accessToken = userService.findTokenByOpenId(form.getOpenId()).getAccessToken();
             String md = accessToken.substring(0, 16) + form.getOpenId().substring(17) + form.getTimestamp();
-            if (!form.getCheckSum().equals(Utils.MD5(md))) {
+            if (!form.getCheckSum().toLowerCase().equals(Utils.MD5(md).toLowerCase())) {
                 return new Response<String>(ResultCode.FALSIFY_DATA, "数据被篡改");
             }
 
