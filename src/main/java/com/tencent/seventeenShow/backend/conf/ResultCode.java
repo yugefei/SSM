@@ -7,7 +7,7 @@ public class ResultCode {
     public static final Long ERROR_DB_CODE = 22l;
     public static final Long ERROR_TOKEN_INVALID_CODE = 11l;
     public static final Long ERROR_DEFAULT_CODE = 555l;
-    public static final Long OK_CODE = 88l;
+    public static final Long OK_CODE = 0L;
     public static final Long ERROR_PARAMETER_WRONG = 33l;
     public static final Long ERROR_HTTP_METHOD_NOT_SUPPORTTED = 44l;
     public static final Long ERROR_OPERATION_FAILED = 55l;
