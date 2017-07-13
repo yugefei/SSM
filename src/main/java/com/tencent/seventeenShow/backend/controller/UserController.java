@@ -120,7 +120,7 @@ public class UserController extends BaseController {
             String tokenByFind = userService.findTokenByOpenId(form.getOpenId()).getToken();
 
             //重放攻击
-            if (Math.abs(System.currentTimeMillis() - form.getTimestamp()) > 60)
+            if (Math.abs(System.currentTimeMillis() - form.getTimestamp()) > 60 * 1000)
                 return new Response<String>(ResultCode.REPALY_ATTACK, "校验失败");
 
             //数据被篡改
