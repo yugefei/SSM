@@ -6,6 +6,7 @@ import com.tencent.seventeenShow.backend.utils.exception.MobileOccupiedException
 import com.tencent.seventeenShow.backend.utils.exception.StudentIdOccupiedException;
 import com.tencent.seventeenShow.backend.utils.exception.StudentNameException;
 import org.apache.ibatis.annotations.Param;
+import com.tencent.seventeenShow.backend.model.Token;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ public interface UserService {
 
     boolean firstLogin(String accessToken, String openId, String token, long expire);
 
-    com.tencent.seventeenShow.backend.model.Token findTokenByOpenId(String openId);
+    Token findTokenByOpenId(String openId);
 
     boolean updateToken(String openId,String newToken, long expire);
     boolean updateExpire(String openId,long expire);
