@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -101,7 +102,7 @@ public class UserServiceImpl  implements UserService{
     }
 
     @Override
-    public boolean firstLogin(String accessToken, String openId, String token, long expire) {
+    public boolean firstLogin(String accessToken, String openId, String token, Date expire) {
         if(userMapper.firstLogin(accessToken,openId,token,expire)>=1)
         return true;
         return false;

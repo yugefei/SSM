@@ -5,6 +5,7 @@ import com.tencent.seventeenShow.backend.model.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -28,7 +29,7 @@ public interface UserMapper {
     User startMatch(@Param("userId") Long userId);
     int fillInResume(@Param("user")User user);
     int firstLogin(@Param("accessToken") String accessToken, @Param("openId") String openId, @Param("token")String token,
-                   @Param("expire")Long expire);
+                   @Param("expire")Date expire);
     Token findTokenByOpenId(@Param("openId")String openId);
     int updateToken(@Param("openId")String openId, @Param("newToken")String newToken, @Param("expire")long expire);
     int updateExpire(@Param("openId")String openId,@Param("expire")long expire);

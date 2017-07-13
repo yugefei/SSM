@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import com.tencent.seventeenShow.backend.model.Token;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,7 +32,7 @@ public interface UserService {
     User startMatch(Long userId);
     boolean fillInResume(User user);
 
-    boolean firstLogin(String accessToken, String openId, String token, long expire);
+    boolean firstLogin(String accessToken, String openId, String token, Date expire);
 
     Token findTokenByOpenId(String openId);
 

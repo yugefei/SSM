@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -105,7 +106,7 @@ public class UserController extends BaseController {
         String token = Utils.getHash(tokenAndId);
         long timeInterval = 24 * 60 * 60 * 1000 ;
         long expire = System.currentTimeMillis() + timeInterval;
-        userService.firstLogin(form.getAccessToken(), form.getOpenId(), token, 0);
+        userService.firstLogin(form.getAccessToken(), form.getOpenId(), token, new Date(expire));
         return new Response<LoginVo>(new LoginVo(token, false));
 
     }
