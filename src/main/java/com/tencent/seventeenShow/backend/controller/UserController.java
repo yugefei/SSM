@@ -114,7 +114,7 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/refreshToken",method = RequestMethod.POST)
     @ResponseBody
-    public Response<String> refreshToken(@RequestBody OAuthForm form) {
+    public Response<String> refreshToken(OAuthForm form) {
         long timeInterval = 24 * 60 * 60 * 1000;
         if (userService.findTokenByOpenId(form.getOpenId())!= null) {
             String tokenByFind = userService.findTokenByOpenId(form.getOpenId()).getToken();
