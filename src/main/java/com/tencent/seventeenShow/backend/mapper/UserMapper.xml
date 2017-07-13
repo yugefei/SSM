@@ -141,7 +141,7 @@
     </select>
 
     <update id="updateToken">
-        UPDATE token_list SET token = #{newToken} and SET expire = #{expire} where openId = #{openId}
+        UPDATE token_list SET token = #{newToken} , SET expire = #{expire} where openId = #{openId}
     </update>
 
     <update id="upDateExpire">
