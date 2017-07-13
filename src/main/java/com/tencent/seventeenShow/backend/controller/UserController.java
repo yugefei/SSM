@@ -115,20 +115,20 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/refreshToken",method = RequestMethod.POST)
     @ResponseBody
-    public Response<String> refreshToken(OAuthForm form) {
+    public Response<LoginVo> refreshToken(OAuthForm form) {
         long timeInterval = 24 * 60 * 60 * 1000;
         if (userService.findTokenByOpenId(form.getOpenId())!= null) {
             String tokenByFind = userService.findTokenByOpenId(form.getOpenId()).getToken();
 
             //重放攻击
             if (Math.abs(System.currentTimeMillis() - form.getTimestamp()) > 60 * 1000)
-                return new Response<String>(ResultCode.REPALY_ATTACK, "校验失败");
+                return new Response<LoginVo>(ResultCode.REPALY_ATTACK, "校验失败");
 
             //数据被篡改
             String accessToken = userService.findTokenByOpenId(form.getOpenId()).getAccessToken();
             String md = accessToken.substring(0, 16) + form.getOpenId().substring(17) + form.getTimestamp();
             if (!form.getCheckSum().toLowerCase().equals(Utils.MD5(md).toLowerCase())) {
-                return new Response<String>(ResultCode.FALSIFY_DATA, "数据被篡改");
+                return new Response<LoginVo>(ResultCode.FALSIFY_DATA, "数据被篡改");
             }
 
             //toekn 过期
@@ -138,15 +138,15 @@ public class UserController extends BaseController {
                 long expire = System.currentTimeMillis() + timeInterval;
                 userService.updateToken(form.getOpenId(), newToken, new Date(expire));
 
-                return new Response<String>(newToken);
+                return new Response<LoginVo>(new LoginVo(newToken));
             }
 
             long expire = userService.findTokenByOpenId(form.getOpenId()).getExpire() + timeInterval;
             userService.updateExpire(form.getOpenId(),new Date(expire));
 
-            return new Response<String>(ResultCode.OK_CODE, "success", userService.findTokenByOpenId(form.getOpenId()).getToken());
+            return new Response<LoginVo>(ResultCode.OK_CODE, "success", new LoginVo(userService.findTokenByOpenId(form.getOpenId()).getToken()));
         }
-        return new Response<String>(ResultCode.ERROR_PARAMETER_WRONG, "无效的Token");
+        return new Response<LoginVo>(ResultCode.ERROR_PARAMETER_WRONG, "无效的Token");
     }
 
 
