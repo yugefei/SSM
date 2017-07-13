@@ -92,7 +92,7 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
-    public Response<LoginVo> firstLogin(@RequestBody LoginForm form){
+    public Response<LoginVo> firstLogin(LoginForm form){
         if(userService.findTokenByOpenId(form.getOpenId())!=null)
         {
             String token = userService.findTokenByOpenId(form.getOpenId()).getToken();
