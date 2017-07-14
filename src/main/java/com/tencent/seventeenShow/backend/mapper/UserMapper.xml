@@ -135,7 +135,7 @@
     </insert>
 
     <select id="findTokenByOpenId" resultType="Token" parameterType="String">
-        select token, expire,accessToken
+        select token, expire,accessToken,sig
         from `token_list`
         where openId = #{openId}
     </select>

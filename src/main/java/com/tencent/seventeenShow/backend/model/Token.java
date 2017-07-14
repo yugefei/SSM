@@ -9,6 +9,7 @@ public class Token {
     private String token;
     private long expire;
     private String accessToken;
+    private String sig;
 
     public String getAccessToken() {
         return accessToken;
@@ -32,5 +33,13 @@ public class Token {
 
     public void setExpire(long expire) {
         this.expire = expire;
+    }
+
+    public String getSig() {
+        return sig;
+    }
+
+    public void setSig(String sig) {
+        this.sig = sig;
     }
 }

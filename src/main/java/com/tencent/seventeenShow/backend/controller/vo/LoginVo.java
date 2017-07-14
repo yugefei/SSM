@@ -11,10 +11,24 @@ import com.tencent.seventeenShow.backend.model.User;
 public class LoginVo {
     private String token;
     private Boolean signed;
-
+    private String sig;
     public LoginVo(String token, Boolean signed){
         this.token = token;
         this.signed = signed;
+    }
+
+    public LoginVo(String token, Boolean signed, String sig) {
+        this.token = token;
+        this.signed = signed;
+        this.sig = sig;
+    }
+
+    public String getSig() {
+        return sig;
+    }
+
+    public void setSig(String sig) {
+        this.sig = sig;
     }
 
     public LoginVo(String token){

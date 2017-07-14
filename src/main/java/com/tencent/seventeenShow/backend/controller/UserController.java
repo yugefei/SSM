@@ -12,6 +12,7 @@ import com.tencent.seventeenShow.backend.mem.SmsCode.SmsCodeType;
 import com.tencent.seventeenShow.backend.mem.TokenManager;
 import com.tencent.seventeenShow.backend.model.Privilege;
 import com.tencent.seventeenShow.backend.model.Response;
+import com.tencent.seventeenShow.backend.model.Token;
 import com.tencent.seventeenShow.backend.model.User;
 import com.tencent.seventeenShow.backend.service.UserService;
 import com.tencent.seventeenShow.backend.utils.Utils;
@@ -98,9 +99,9 @@ public class UserController extends BaseController {
     public Response<LoginVo> firstLogin(LoginForm form){
         if(userService.findTokenByOpenId(form.getOpenId())!=null)
         {
-            String token = userService.findTokenByOpenId(form.getOpenId()).getToken();
+            Token token = userService.findTokenByOpenId(form.getOpenId());
 
-            return new Response<LoginVo>(new LoginVo(token, true));
+            return new Response<LoginVo>(new LoginVo(token.getToken(), true, token.getSig()));
         }
 
         String tokenAndId = form.getAccessToken() +form.getOpenId() + System.currentTimeMillis();
@@ -115,7 +116,7 @@ public class UserController extends BaseController {
             return new Response<LoginVo>(ResultCode.ERROR_OPERATION_FAILED,"failed to get Sig");
         }
         userService.firstLogin(form.getAccessToken(), form.getOpenId(), token, new Date(expire), sig);
-        return new Response<LoginVo>(new LoginVo(token, false));
+        return new Response<LoginVo>(new LoginVo(token, false,sig));
 
     }
 
