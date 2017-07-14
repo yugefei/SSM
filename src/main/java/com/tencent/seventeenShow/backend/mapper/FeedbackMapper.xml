@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tencent.seventeenShow.backend.dao.FeedbackMapper">
+
+
+    <insert id="addFeedback" parameterType="Map">
+        insert into feedback (user_id,content,time) value(#{feedback.userId},#{feedback.content},NOW())
+    </insert>
+    <!--<select id="getWorkerByCityId" resultMap="workerMap">-->
+        <!--select code,`name`,`level`,photo,user_id,phone,company,id_code,`type` from worker_info where city_id = #{cityId};-->
+    <!--</select>-->
+
+</mapper>

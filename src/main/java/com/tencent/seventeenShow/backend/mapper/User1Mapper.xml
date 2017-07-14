@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tencent.seventeenShow.backend.dao.UserMapper">
+    <resultMap id="userMap" type="User1">
+        <id property="id" column="id"/>
+        <result property="studentId" column="student_id"/>
+    </resultMap>
+    <!--List<MaterialCategory> getAllCategory();-->
+    <!--List<Material> getMaterialByCategoryId(@Param("cid")Long categoryId);-->
+
+
+
+    <!--<select id="login" resultMap="baseMap" parameterType="String">-->
+        <!--select id,open_id,nick_name,sex,city_id,avatar,phone,real_name,`character`,address,login_name-->
+        <!--from `user`-->
+        <!--where open_id=#{openId};-->
+    <!--</select>-->
+    <!--<update id="bindOpenId" parameterType="String">-->
+        <!--update `user` set open_id = #{openId} where id = #{userId};-->
+    <!--</update>-->
+
+    <!--<update id="unbundingByOpenId" parameterType="String">-->
+        <!--update `user` set open_id = null where open_id = #{open_id};-->
+    <!--</update>-->
+
+    <!--<update id="unbunding" parameterType="Long">-->
+        <!--update `user` set open_id = null where id = #{userId};-->
+    <!--</update>-->
+    <select id="login" resultMap="userMap" parameterType="String">
+        select id, avatar,mobile,`name`,gender,mail,student_id
+        from `user`
+        where (lower(`student_id`)=lower(#{loginName}) or lower(mobile) = lower(#{loginName})) and pwd = #{password};
+    </select>
+    <select id="register" resultType="int" parameterType="String">
+        select count(1)
+        from `user`
+        where lower(student_id) = lower(#{username});
+    </select>
+    <select id="resetPwd" resultType="int" parameterType="String">
+        select count(1)
+        from `user`
+        where lower(mobile) = lower(#{username});
+    </select>
+
+    <insert id="changeMobile" parameterType="com.tencent.seventeenShow.backend.model.User">
+        insert into `user`(
+          mobile,`student_id`,`name`,gender,mail,pwd,create_time
+        )values(
+          #{nu.mobile},#{nu.studentId},#{nu.name},#{nu.gender},#{nu.mail},#{pwd},now()
+        )
+    </insert>
+    <update id="setPwd">
+        update `user` set  pwd=#{pwd} where mobile = #{id}
+    </update>
+
+    <select id="getBalance" resultType="int">
+        select count(1)
+        FROM student_information
+        WHERE student_id = #{studentId} and `name` = #{name}
+    </select>
+    <!--<select id="getWorkerByCityId" resultMap="workerMap">-->
+        <!--select code,`name`,`level`,photo,user_id,phone,company,id_code,`type` from worker_info where city_id = #{cityId};-->
+    <!--</select>-->
+    <update id="setAvatar">
+        UPDATE user set avatar = #{avatarUrl} where id = #{userId}
+    </update>
+
+    <update id="getFriendslist">
+        UPDATE user SET pwd = #{newPwd} where id = #{userId} and pwd = #{oriPwd}
+    </update>
+
+    <update id="extendTime">
+        UPDATE user SET mobile = #{mobile} where id = #{userId}
+    </update>
+
+    <insert id="pairLike">
+        INSERT INTO `user_lover`  (user_name,lover_name,create_time) VALUE(#{id},#{lover_name},NOW());
+    </insert>
+
+    <update id="pairDislike">
+        UPDATA  user SET dislikeBalance = disLikeBalances + 1 WHERE id = #{id};
+    </update>
+
+    <update id="BuyFilter">
+        UPDATE user SET pwd = #{newPwd} where id = #{userId} and pwd = #{oriPwd}
+    </update>
+</mapper>
