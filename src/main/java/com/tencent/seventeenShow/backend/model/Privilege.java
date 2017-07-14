@@ -4,22 +4,27 @@ package com.tencent.seventeenShow.backend.model;
  * Created by gefeiyu on 2017/7/10.
  */
 public class Privilege {
-    private Long diamondBalances;
-    private Long loveBalances;
+    private Long diamondBalance;
+    private Long loveBalance;
 
-    public Long getDiamondBalances() {
-        return diamondBalances;
+    public Privilege(Long diamondBalance, Long loveBalance) {
+        this.diamondBalance = diamondBalance;
+        this.loveBalance = loveBalance;
     }
 
-    public void setDiamondBalances(Long diamondBalances) {
-        this.diamondBalances = diamondBalances;
+    public Long getDiamondBalance() {
+        return diamondBalance;
     }
 
-    public Long getLoveBalances() {
-        return loveBalances;
+    public void setDiamondBalance(Long diamondBalance) {
+        this.diamondBalance = diamondBalance;
     }
 
-    public void setLoveBalances(Long loveBalances) {
-        this.loveBalances = loveBalances;
+    public Long getLoveBalance() {
+        return loveBalance;
+    }
+
+    public void setLoveBalance(Long loveBalance) {
+        this.loveBalance = loveBalance;
     }
 }

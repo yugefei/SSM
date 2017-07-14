@@ -4,12 +4,31 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.DateConverter;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.security.MessageDigest;
 
 /**
  * Created by Edward on 2016/9/18.
  */
 public class Utils {
+    public static String getSig(String openId) throws IOException{
+        return Utils.exeCmd("/root/signature /root/private_key 1400035413 " + openId);
+    }
+    private static String exeCmd(String commandStr) throws IOException {
+        BufferedReader br = null;
+        Process p = Runtime.getRuntime().exec(commandStr);
+        br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String line = null;
+        StringBuilder sb = new StringBuilder();
+        while ((line = br.readLine()) != null) {
+            sb.append(line);
+        }
+        return sb.toString();
+
+    }
+
     public static void copyProperties(Object result,Object object){
         try{
             ConvertUtils.register(new DateConverter(null), java.util.Date.class);

@@ -24,7 +24,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.rmi.CORBA.Util;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -106,7 +108,13 @@ public class UserController extends BaseController {
         String token = Utils.getHash(tokenAndId);
         long timeInterval = 24 * 60 * 60 * 1000 ;
         long expire = System.currentTimeMillis() + timeInterval;
-        userService.firstLogin(form.getAccessToken(), form.getOpenId(), token, new Date(expire));
+        String sig = null;
+        try{
+            sig = Utils.getSig(form.getOpenId());
+        }catch(IOException e){
+            return new Response<LoginVo>(ResultCode.ERROR_OPERATION_FAILED,"failed to get Sig");
+        }
+        userService.firstLogin(form.getAccessToken(), form.getOpenId(), token, new Date(expire), sig);
         return new Response<LoginVo>(new LoginVo(token, false));
 
     }
@@ -150,14 +158,19 @@ public class UserController extends BaseController {
     }
 
 
-
-   @RequestMapping(value = "/balances",method = RequestMethod.GET)
-   @ResponseBody
-   public Response<Privilege> getBalance(@RequestHeader("token")String token){
-        Long userId = TokenManager.getInstance().getUser(token).getId();
-       Privilege privilege = userService.getPrivilegeByName(userId);
-       return new Response<Privilege>(privilege);
-   }
+//
+//   @RequestMapping(value = "/balance",method = RequestMethod.GET)
+//   @ResponseBody
+//   public Response<Privilege> getBalance(@RequestHeader("token")String token){
+////        Long userId = TokenManager.getInstance().getUser(token).getId();
+////        Privilege privilege = userService.getPrivilegeByName(userId);
+////        return new Response<Privilege>(privilege);
+//       Long userId = 1L;
+//       Long balance = userService.getBalance(userId);
+//       Long love = userService.getLove(userId);
+//
+//       return new Response<Privilege>(new Privilege(balance, love));
+//   }
 
 
     @RequestMapping(value = "/peer/pair/like",method = RequestMethod.GET)

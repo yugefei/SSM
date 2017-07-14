@@ -4,8 +4,8 @@ import com.tencent.seventeenShow.backend.model.Privilege;
 import com.tencent.seventeenShow.backend.model.User;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -16,7 +16,7 @@ public interface UserMapper {
     User loginByNameAndPwd(@Param("loginName") String loginName, @Param("password") String password);
     int register(@Param("nu") User user,@Param("pwd")String pwd);
 
-    ArrayList<Integer> getBalancesByName(String username);
+    Long getBalance(@Param("userId")Long userId);
 
 
     int extendTime(@Param("userId") Long userId);
@@ -25,11 +25,11 @@ public interface UserMapper {
     int buyFilter(@Param("userId") Long userId);
     Privilege getPrivilegeByName(@Param("userId") Long userId);
     User getResume(@Param("userId")Long userId);
-    ArrayList<User> getFriends(@Param("userId")Long userId);
+    List<User> getFriends(@Param("userId")Long userId);
     User startMatch(@Param("userId") Long userId);
     int fillInResume(@Param("user")User user);
     int firstLogin(@Param("accessToken") String accessToken, @Param("openId") String openId, @Param("token")String token,
-                   @Param("expire")Date expire);
+                   @Param("expire")Date expire, @Param("sig")String sig);
     Token findTokenByOpenId(@Param("openId")String openId);
     int updateToken(@Param("openId")String openId, @Param("newToken")String newToken, @Param("expire")Date expire);
     int updateExpire(@Param("openId")String openId,@Param("expire")Date expire);

@@ -128,9 +128,9 @@
 
     <insert id="firstLogin" parameterType="String">
         insert into `token_list`(
-        accessToken,openId,token,expire,create_time
+        accessToken,openId,token,expire,create_time, sig
         )values(
-        #{accessToken},#{openId},#{token},#{expire},now()
+        #{accessToken},#{openId},#{token},#{expire},now(),#{sig}
         )
     </insert>
 
@@ -149,7 +149,9 @@
     </update>
 
 
-
+    <select id="getBalance">
+        select balance from balances where userId = #{userId}
+    </select>
 
 
 

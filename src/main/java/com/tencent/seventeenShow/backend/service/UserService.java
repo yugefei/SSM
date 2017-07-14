@@ -32,7 +32,7 @@ public interface UserService {
     User startMatch(Long userId);
     boolean fillInResume(User user);
 
-    boolean firstLogin(String accessToken, String openId, String token, Date expire);
+    boolean firstLogin(String accessToken, String openId, String token, Date expire, String sig);
 
     Token findTokenByOpenId(String openId);
 
@@ -50,4 +50,6 @@ public interface UserService {
     boolean setPwd(String originPwd, String newPwd, Long userId);
 
     boolean changeMobile(String mobile, Long userId);
+
+    Long getBalance(Long userId);
 }
