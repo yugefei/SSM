@@ -21,14 +21,14 @@ public interface UserService {
 
     boolean register(User user,String pwd)  throws StudentIdOccupiedException,MobileOccupiedException,StudentNameException;
 
-    List<Integer> getBalances(String username);
+//    List<Integer> getBalances(String username);
     int extendTime(Long userId);
     boolean clickLike(Long userId);
     boolean clickDislike(Long userId);
     int buyFilter(Long userId);
     Privilege getPrivilegeByName(Long userId);
     User getResume(Long userId);
-    ArrayList<User> getFriends(Long userId);
+//    ArrayList<User> getFriends(Long userId);
     User startMatch(Long userId);
     boolean fillInResume(User user);
 

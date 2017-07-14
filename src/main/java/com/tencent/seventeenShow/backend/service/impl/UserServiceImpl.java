@@ -41,11 +41,11 @@ public class UserServiceImpl  implements UserService{
 
         return userMapper.register(user,pwd) == 1;
     }
-
-    @Override
-    public List<Integer> getBalances(String username) {
-        return userMapper.getBalancesByName(username);
-    }
+//
+//    @Override
+//    public List<Integer> getBalances(String username) {
+//        return userMapper.getBalancesByName(username);
+//    }
 
     @Override
     public int extendTime(Long userId) {
@@ -83,11 +83,11 @@ public class UserServiceImpl  implements UserService{
         return userMapper.getResume(userId);
     }
 
-
-    @Override
-    public ArrayList<User> getFriends(Long userId) {
-        return userMapper.getFriends(userId);
-    }
+//
+//    @Override
+//    public List<User> getFriends(Long userId) {
+//        return userMapper.getFriends(userId);
+//    }
 
     @Override
     public User startMatch(Long userId) {

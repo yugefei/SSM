@@ -224,16 +224,16 @@ public class UserController extends BaseController {
     }
 
 
-    @RequestMapping(value = "/getfriends",method = RequestMethod.GET)
-    @ResponseBody
-    public Response<FriendsVo> getFreinds(@RequestHeader("token")String token){
-        Long userId = TokenManager.getInstance().getUser(token).getId();
-        FriendsVo friendsVo = new FriendsVo();
-        ArrayList<User> list = new ArrayList<User>();
-        list = userService.getFriends(userId);
-        friendsVo.setFriends(list);
-        return new Response<FriendsVo>(friendsVo);
-    }
+//    @RequestMapping(value = "/getfriends",method = RequestMethod.GET)
+//    @ResponseBody
+//    public Response<FriendsVo> getFreinds(@RequestHeader("token")String token){
+//        Long userId = TokenManager.getInstance().getUser(token).getId();
+//        FriendsVo friendsVo = new FriendsVo();
+//        ArrayList<User> list = new ArrayList<User>();
+//        list = userService.getFriends(userId);
+//        friendsVo.setFriends(list);
+//        return new Response<FriendsVo>(friendsVo);
+//    }
 
     @RequestMapping(value = "/peer/start",method = RequestMethod.GET)
     @ResponseBody
