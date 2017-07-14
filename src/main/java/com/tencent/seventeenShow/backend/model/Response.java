@@ -58,6 +58,15 @@ public class Response <T> {
     public Response(T data){
         this.setData(data);
     }
+<<<<<<< HEAD:src/main/java/com/tencent/seventeenShow/backend/model/Response.java
 
 
+=======
+    public Response(Long code,String message, T data)
+    {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
+>>>>>>> 75bfe64e995a5ead1697bd7910d49b8d17b62cbd:src/main/java/com/tencent/seventeenShow/backend/model/Response.java
 }

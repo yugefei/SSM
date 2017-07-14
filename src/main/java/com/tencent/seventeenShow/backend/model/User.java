@@ -9,12 +9,19 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 public class User {
     private Long id;
     private String mobile;
-    private String studentId;
-    private String name;
+    private String birthday;
     private String gender;
+    private String nickname;
     private String avatar;
-    private String mail;
+    private String username;
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
     public Long getId() {
         return id;
     }
@@ -31,20 +38,12 @@ public class User {
         this.mobile = mobile;
     }
 
-    public String getStudentId() {
-        return studentId;
+    public String getBirthday() {
+        return birthday;
     }
 
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
     public String getGender() {
@@ -55,12 +54,12 @@ public class User {
         this.gender = gender;
     }
 
-    public String getMail() {
-        return mail;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getAvatar() {

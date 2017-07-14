@@ -1,6 +1,7 @@
 package com.tencent.seventeenShow.backend.mem;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by Edward on 2016/8/6.
@@ -9,6 +10,7 @@ public class TokenModel <T>{
     private String token;
     private Date expireTime;
     private T data;
+
 
     public String getToken() {
         return token;

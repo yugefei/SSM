@@ -4,6 +4,9 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.DateConverter;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,6 +15,22 @@ import java.util.Date;
  * Created by Edward on 2016/9/18.
  */
 public class Utils {
+    public static String getSig(String openId) throws IOException{
+        return Utils.exeCmd("/root/signature /root/private_key 1400035413 " + openId);
+    }
+    private static String exeCmd(String commandStr) throws IOException {
+        BufferedReader br = null;
+        Process p = Runtime.getRuntime().exec(commandStr);
+        br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String line = null;
+        StringBuilder sb = new StringBuilder();
+        while ((line = br.readLine()) != null) {
+            sb.append(line);
+        }
+        return sb.toString();
+
+    }
+
     public static void copyProperties(Object result,Object object){
         try{
             ConvertUtils.register(new DateConverter(null), java.util.Date.class);
@@ -50,10 +69,23 @@ public class Utils {
         }
 
     }
+<<<<<<< HEAD:src/main/java/com/tencent/seventeenShow/backend/utils/Utils.java
     public static void main(String [] args)
     {
         long timeInterval = 24 * 60 * 60 * 1000;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         System.out.print(simpleDateFormat.format(new Date(System.currentTimeMillis() + timeInterval)));
+=======
+    public static String MD5(String data) {
+        try{
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] b = md.digest(data.getBytes());
+            String tokenString = byteToHexString(b);
+            return tokenString;
+        }catch (Exception e){
+            return null;
+        }
+
+>>>>>>> 75bfe64e995a5ead1697bd7910d49b8d17b62cbd:src/main/java/com/tencent/seventeenShow/backend/utils/Utils.java
     }
 }
