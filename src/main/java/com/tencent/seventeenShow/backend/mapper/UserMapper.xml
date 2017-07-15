@@ -86,7 +86,7 @@
     </update>
 
     <insert id="insertResume">
-        insert into user(username,age) values(#{vo.username},#{vo.age})
+        insert into user(openId,username,age) values(#{openId},#{vo.username},#{vo.age})
     </insert>
 <!--
     <update id="changeMatch">
@@ -134,6 +134,7 @@
         <foreach collection="labels" item="label" separator=",">
             (#{openId},#{label})
         </foreach>
+
 
     </insert>
 </mapper>
