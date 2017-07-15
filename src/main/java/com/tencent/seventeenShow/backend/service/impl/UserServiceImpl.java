@@ -127,7 +127,10 @@ public class UserServiceImpl  implements UserService{
 
     @Override
     public boolean modifyResume(String openId, ChangeResumeVo changeResumeVo) {
-        return userMapper.modifyResume(openId,changeResumeVo)>=1;
+        int returnCode = userMapper.modifyResume(openId,changeResumeVo);
+
+        //return userMapper.modifyResume(openId,changeResumeVo) >= 1;\
+        return returnCode >= 1;
     }
 
     @Override
