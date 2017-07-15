@@ -66,7 +66,7 @@
         where openId = #{openId}
     </select>
 
-    <select id="resumeExists">
+    <select id="resumeExists" resultType="Integer">
         select count(1)
         from user
         where openId = #{openId}
