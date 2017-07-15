@@ -26,7 +26,7 @@ public class PeerManager {
 
     private static PeerManager instance = new PeerManager();
 
-    public PeerManager g(){
+    public static PeerManager g(){
         return instance;
     }
 

@@ -22,9 +22,10 @@ public class UserServiceImpl  implements UserService{
     private UserMapper userMapper;
 
 
+
     @Override
-    public boolean firstLogin(String accessToken, String openId, String token, Date expire) {
-        if(userMapper.firstLogin(accessToken,openId,token,expire)>=1)
+    public boolean firstLogin(String accessToken, String openId, String token, Date expire, String sig) {
+        if(userMapper.firstLogin(accessToken,openId,token,expire,sig)>=1)
             return true;
         return false;
     }
