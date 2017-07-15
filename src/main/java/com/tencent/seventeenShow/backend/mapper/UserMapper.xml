@@ -86,8 +86,8 @@
     </update>
 
     <insert id="insertResume">
-        insert into user(openId,username,age,diamondBalance,loveBalance,dislikeLeft,localMatch)
-        values(#{openId},#{vo.username},#{vo.age},0,5,0,false)
+        insert into user(openId,username,birthday,diamondBalance,loveBalance,dislikeLeft,localMatch)
+        values(#{openId},#{vo.username},#{vo.birthday},0,5,0,false)
     </insert>
 <!--
     <update id="changeMatch">
@@ -144,7 +144,7 @@
         from `user`
         where openId = #{openId}
     </select>
-    
+
     <select id="getFriends" resultType="String" parameterType="String">
         select friendOpenId
         from `user`
