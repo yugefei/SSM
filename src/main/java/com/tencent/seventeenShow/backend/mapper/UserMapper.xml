@@ -54,7 +54,7 @@
     </select>
 
     <select id="getResume" resultType="User" parameterType="String">
-        select mobile, username,loveBalance,diamondBalance,avatar,age
+        select mobile, username,loveBalance,diamondBalance,avatar,age,openId
         from `user`
         where openId = #{openId}
     </select>
