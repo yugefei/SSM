@@ -122,7 +122,7 @@ public class UserServiceImpl  implements UserService{
 
     @Override
     public boolean addDiamond(String openId,int count) {
-        return userMapper.addDiamond(openId)>=1;
+        return userMapper.addDiamond(openId,count)>=1;
     }
 
 

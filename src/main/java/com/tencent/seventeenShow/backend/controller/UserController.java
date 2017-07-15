@@ -221,7 +221,6 @@ public class UserController extends BaseController {
         String openId = userService.findOpenIdByToken(token);
         if(userService.addDiamond(openId,num.getDiamondNum()))
         {
-            int diamondBalance = userService.getResume(openId).getDiamondBalance();
             return new Response();
         }
         return new Response(ResultCode.ERROR_DEFAULT_CODE,"充值失败");

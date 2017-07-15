@@ -111,7 +111,7 @@
     </select>
 
     <update id="addDiamond">
-        UPDATE user SET diamondBalance = diamondBalance + 5 where openId = #{openId}
+        UPDATE user SET diamondBalance = diamondBalance + #{count} where openId = #{openId}
     </update>
 
     <update id="modifyResume" parameterType="com.tencent.seventeenShow.backend.controller.vo.ChangeResumeVo">

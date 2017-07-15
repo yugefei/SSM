@@ -40,7 +40,7 @@ public interface UserMapper {
     FriendInfo getFriendInfo(@Param("openId")String openId);
   //  int isMatch(@Param("openId1")String openId1,@Param("openId2")String openId2);
 
-    int addDiamond(@Param("openId")String openId);
+    int addDiamond(@Param("openId")String openId,@Param("count")int count);
 
     int resumeExists(@Param("openId")String openId);
     int insertResume(@Param("openId")String openId, @Param("vo")ChangeResumeVo changeResumeVo);
