@@ -15,12 +15,12 @@ public class UploadTokenManager {
     private Auth auth;
 
     private UploadTokenManager() {
-        String accessKey = "acckey";
-        String secretKey = "seckey";
+        String accessKey = "RYYpakA_Uok-E7gB_3QPG2LyWXJPwWBApJ9I9r5P";
+        String secretKey = "7p8g1SLav-nGIF-WPN8-zYjsqX3UAfMA58on2DF7";
         auth = Auth.create(accessKey, secretKey);
     }
 
     public String getToken(){
-        return auth.uploadToken("blackstone");
+        return auth.uploadToken("17show");
     }
 }
