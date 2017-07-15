@@ -194,7 +194,8 @@ public class UserController extends BaseController {
             String openId = userService.findOpenIdByToken(token);
             User user = userService.getResume(openId);
             List<String> label = userService.getLabel(token);
-            user.setLabel(label);
+            if(label != null)
+                user.setLabel(label);
             return new Response<User>(user);
         }
         return new Response<User>(ResultCode.ERROR_DEFAULT_CODE,"无用户信息");
