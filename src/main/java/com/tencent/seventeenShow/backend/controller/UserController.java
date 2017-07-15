@@ -309,4 +309,13 @@ public class UserController extends BaseController {
 
         return new Response<List<User>>(friends);
     }
+
+    @RequestMapping(value = "/insertLabel",method = RequestMethod.POST)
+    @ResponseBody
+    public Response insertLabel(@RequestHeader("token")String token,Label tags) {
+        String openId = userService.findOpenIdByToken(token);
+        String[] labels = tags.getTags().split(",");
+        userService.insertLabel(openId,labels);
+        return new Response();
+    }
 }
