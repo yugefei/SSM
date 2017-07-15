@@ -38,7 +38,7 @@ public class PeerManager {
         peeredUsers = new ConcurrentSkipListMap<User, WeakReference<UserPeer>>();
     }
 
-    public UserPeer getMatchResult(User user){
+    public UserPeer getPeerResult(User user){
         if(peeredUsers.containsKey(user)) //已匹配, 返回couple
             return peeredUsers.get(user).get();
 

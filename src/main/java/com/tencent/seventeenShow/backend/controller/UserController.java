@@ -5,6 +5,7 @@ import com.tencent.seventeenShow.backend.controller.form.LoginForm;
 import com.tencent.seventeenShow.backend.controller.vo.ChangeResumeVo;
 import com.tencent.seventeenShow.backend.controller.form.GenderForm;
 import com.tencent.seventeenShow.backend.controller.vo.LoginVo;
+import com.tencent.seventeenShow.backend.controller.vo.MatchResultVo;
 import com.tencent.seventeenShow.backend.controller.vo.PeerResultVo;
 import com.tencent.seventeenShow.backend.mem.PeerManager;
 import com.tencent.seventeenShow.backend.model.*;
@@ -17,6 +18,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.*;
+
+import static com.tencent.seventeenShow.backend.model.UserPeer.kMATCHED;
+import static com.tencent.seventeenShow.backend.model.UserPeer.kRESULT_UNKNOWN;
+import static com.tencent.seventeenShow.backend.model.UserPeer.kUNMATCHED;
 
 
 /**
@@ -119,7 +124,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public Response<PeerResultVo> peerResult(@RequestHeader("token")String token){
         User user = userService.getResume(userService.findOpenIdByToken(token));
-        UserPeer peer =  PeerManager.g().getMatchResult(user);
+        UserPeer peer =  PeerManager.g().getPeerResult(user);
 
         if(peer == null)
             return new Response<PeerResultVo>(ResultCode.ERROR_NOT_PEERED, "not peered");
@@ -144,18 +149,40 @@ public class UserController extends BaseController {
 
     }
 
-/*
     // 点击爱心
     @RequestMapping(value = "/clicklove",method = RequestMethod.GET)
     @ResponseBody
-    public Response clickLove(@RequestHeader("token")String token, ClickDiamond diamond){
-        userService.clickLove(diamond.getOpenId());
-        String openId1 = userService.findOpenIdByToken(token);
-        String openId2 = diamond.getOpenId();
-        userService.changeMatch(openId1,openId2);
-
-        return new Response(ResultCode.OK_CODE,"点击喜欢成功");
+    public Response clickLove(@RequestHeader("token")String token){
+        User user = userService.getResume(userService.findOpenIdByToken(token));
+        PeerManager.g().clickLike(user);
+        return new Response();
     }
+
+    @RequestMapping(value = "/clickdislike",method = RequestMethod.GET)
+    @ResponseBody
+    public Response clickDislike(@RequestHeader("token")String token){
+        User user = userService.getResume(userService.findOpenIdByToken(token));
+        PeerManager.g().clickDislike(user);
+        return new Response();
+    }
+
+    @RequestMapping(value = "/matchResult",method = RequestMethod.GET)
+    @ResponseBody
+    public Response<MatchResultVo> matchResult(@RequestHeader("token")String token){
+        User user = userService.getResume(userService.findOpenIdByToken(token));
+        int result = PeerManager.g().matchResult(user);
+        if(result == kRESULT_UNKNOWN){
+            return new Response<MatchResultVo>(new MatchResultVo("unknown"));
+        }else if(result == kMATCHED){
+            return new Response<MatchResultVo>(new MatchResultVo("matched"));
+        }else if(result == kUNMATCHED){
+            return new Response<MatchResultVo>(new MatchResultVo("unmatched"));
+        }
+        return new Response<MatchResultVo>();
+    }
+
+/*
+
 
     //点击X
     @RequestMapping(value = "/clickdislike",method = RequestMethod.GET)
