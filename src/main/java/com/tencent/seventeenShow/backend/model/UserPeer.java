@@ -1,10 +1,16 @@
 package com.tencent.seventeenShow.backend.model;
 
+import com.tencent.seventeenShow.backend.dao.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * Created by EdwardZhou on 2017/7/15.
  * All Rights Reserved
  */
 public class UserPeer {
+    @Autowired
+    private UserMapper userMapper;
+
     private static int kUSER_CLICK_LIKE = 1;
     private static int kUSER_CLICK_DISLIKE = 2;
     private static int kUSER_UNCLICK = 0;
@@ -61,8 +67,14 @@ public class UserPeer {
             throw new NullPointerException("openId should not be null");
 
         if(openId.equals(a.getOpenId())){
+            if(aClickResult != kUSER_CLICK_LIKE)
+                userMapper.decLove(a.getOpenId());
+
             aClickResult = kUSER_CLICK_LIKE;
         }else if (openId.equals(b.getOpenId())){
+            if(bClickResult != kUSER_CLICK_LIKE)
+                userMapper.decLove(b.getOpenId());
+
             bClickResult = kUSER_CLICK_LIKE;
         }else{
             throw new NullPointerException("the user is not in peer");
