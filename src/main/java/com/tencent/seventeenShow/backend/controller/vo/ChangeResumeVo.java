@@ -7,8 +7,17 @@ import java.util.List;
  */
 public class ChangeResumeVo {
     private String username;
-    private String label;
+    private String gender;
     private  String birthday;
+    private String label;
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
 
     public String getBirthday() {
         return birthday;
@@ -26,12 +35,11 @@ public class ChangeResumeVo {
         this.username = username;
     }
 
-    public String getLabel() {
-        return label;
+    public String getGender() {
+        return gender;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
-
 }

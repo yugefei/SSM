@@ -111,7 +111,7 @@ public class UserController extends BaseController {
         if(userService.findOpenIdByToken(token)!=null)
         {
             String openId = userService.findOpenIdByToken(token);
-            return new Response<List<String>>(ResultCode.OK_CODE,"success",userService.getLabel(openId));
+            return new Response<List<String>>(userService.getLabel(openId));
         }
         return new Response<List<String>>(ResultCode.ERROR_DEFAULT_CODE,"无用户标签信息");
     }
