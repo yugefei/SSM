@@ -68,7 +68,7 @@ public interface UserService {
     List<String> getFriends(String openId);
 
     User getFriendInfo(String openId);
-
+    int getLoveNum(String openId);
 
 
 }

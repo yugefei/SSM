@@ -159,6 +159,10 @@ public class UserServiceImpl  implements UserService{
         return userMapper.getFriendInfo(openId);
     }
 
+    @Override
+    public int getLoveNum(String openId) {
+        return userMapper.getLoveNum(openId);
+    }
 
 
 }

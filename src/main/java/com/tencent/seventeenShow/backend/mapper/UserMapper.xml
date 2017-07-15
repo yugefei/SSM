@@ -154,4 +154,9 @@
         where openId = #{openId}
     </select>
 
+    <select id="getLoveNum" resultType="Integer" parameterType="String">
+        select loveBalance
+        from `user`
+        where openId = #{openId}
+    </select>
 </mapper>
