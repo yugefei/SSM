@@ -66,7 +66,11 @@
         where openId = #{openId}
     </select>
 
-
+    <select id="resumeExists">
+        select count(1)
+        form user
+        where openId = #{openId}
+    </select>
 
     <!--开始写接口咯-->
     <update id="clickDiamond">
@@ -81,8 +85,9 @@
         UPDATE user SET dislikeLeft = dislikeLeft - 1 where openId = #{openId}
     </update>
 
-
-
+    <insert id="insertResume">
+        insert into user(username,age) values(#{vo.username},#{vo.age})
+    </insert>
 <!--
     <update id="changeMatch">
         UPDATE match SET openid1 = 1 and result = openid1 + #{openId2} where openId1 = #{openId1} and openId2 = #{openId2}

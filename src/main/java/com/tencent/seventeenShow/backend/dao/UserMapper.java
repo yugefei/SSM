@@ -42,7 +42,8 @@ public interface UserMapper {
 
     int addDiamond(@Param("openId")String openId);
 
-
+    int resumeExists(@Param("openId")String openId);
+    int insertResume(@Param("openId")String openId, @Param("vo")ChangeResumeVo changeResumeVo);
     int modifyResume(@Param("openId")String openId ,@Param("vo")ChangeResumeVo changeResumeVo);
     int modifyGender(@Param("openId")String openId,@Param("gender") String gender);
 

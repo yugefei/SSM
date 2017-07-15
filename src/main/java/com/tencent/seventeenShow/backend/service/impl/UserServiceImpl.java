@@ -125,13 +125,7 @@ public class UserServiceImpl  implements UserService{
         return userMapper.addDiamond(openId)>=1;
     }
 
-    @Override
-    public boolean modifyResume(String openId, ChangeResumeVo changeResumeVo) {
-        int returnCode = userMapper.modifyResume(openId,changeResumeVo);
 
-        //return userMapper.modifyResume(openId,changeResumeVo) >= 1;\
-        return returnCode >= 1;
-    }
 
     @Override
     public boolean modifyGender(String openId, String gender) {
@@ -153,7 +147,13 @@ public class UserServiceImpl  implements UserService{
         return userMapper.insertLabel(openId,tag)>=1;
     }
 
-
+    @Override
+    public boolean modifyResume(String openId, ChangeResumeVo changeResumeVo) {
+        if(userMapper.resumeExists(openId)>=1){
+            return userMapper.modifyResume(openId,changeResumeVo) >= 1;
+        }
+        return userMapper.insertResume(openId,changeResumeVo)>=1;
+    }
 }
 
 
