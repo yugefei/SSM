@@ -2,11 +2,8 @@ package com.tencent.seventeenShow.backend.controller;
 import com.tencent.seventeenShow.backend.conf.ResultCode;
 import com.tencent.seventeenShow.backend.controller.form.*;
 import com.tencent.seventeenShow.backend.controller.form.LoginForm;
-import com.tencent.seventeenShow.backend.controller.vo.ChangeResumeVo;
+import com.tencent.seventeenShow.backend.controller.vo.*;
 import com.tencent.seventeenShow.backend.controller.form.GenderForm;
-import com.tencent.seventeenShow.backend.controller.vo.LoginVo;
-import com.tencent.seventeenShow.backend.controller.vo.MatchResultVo;
-import com.tencent.seventeenShow.backend.controller.vo.PeerResultVo;
 import com.tencent.seventeenShow.backend.mem.PeerManager;
 import com.tencent.seventeenShow.backend.model.*;
 import com.tencent.seventeenShow.backend.service.UserService;
@@ -154,10 +151,10 @@ public class UserController extends BaseController {
     // 点击爱心
     @RequestMapping(value = "/clicklove",method = RequestMethod.GET)
     @ResponseBody
-    public Response clickLove(@RequestHeader("token")String token){
+    public Response<LoveBalanceVo> clickLove(@RequestHeader("token")String token){
         User user = userService.getResume(userService.findOpenIdByToken(token));
         PeerManager.g().clickLike(user);
-        return new Response();
+        return new Response<LoveBalanceVo>(new LoveBalanceVo(userService.getLoveNum(user.getOpenId())));
     }
 
     @RequestMapping(value = "/clickdislike",method = RequestMethod.GET)
