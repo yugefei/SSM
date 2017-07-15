@@ -120,8 +120,9 @@ public class UserController extends BaseController {
     public Response<PeerResultVo> peerResult(@RequestHeader("token")String token){
         User user = userService.getResume(userService.findOpenIdByToken(token));
         UserPeer peer =  PeerManager.g().getMatchResult(user);
+
         if(peer == null) return new Response<PeerResultVo>(ResultCode.ERROR_NOT_PEERED, "not peered");
-        else return new Response<PeerResultVo>(new PeerResultVo(peer.getPeer(user.getOpenId()), peer.getRoomNumber()));
+        else return new Response<PeerResultVo>(new PeerResultVo(peer.getPeer(user.getOpenId()), peer.getRoomNumber(), user.equals(peer.getA())));
     }
 
     // 点击钻石+5s

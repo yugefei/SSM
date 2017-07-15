@@ -9,10 +9,12 @@ import com.tencent.seventeenShow.backend.model.User;
 public class PeerResultVo {
     private User user;
     private Integer roomId;
+    private Boolean isRoomAdmin;
 
-    public PeerResultVo(User user, Integer roomId) {
+    public PeerResultVo(User user, Integer roomId, Boolean isRoomAdmin) {
         this.user = user;
         this.roomId = roomId;
+        this.isRoomAdmin = isRoomAdmin;
     }
 
     public User getUser() {
@@ -30,4 +32,5 @@ public class PeerResultVo {
     public void setRoomId(Integer roomId) {
         this.roomId = roomId;
     }
+
 }
