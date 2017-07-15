@@ -12,14 +12,14 @@ public class User implements Comparable{
     private String mobile;
     private String birthday;
     private String gender;
-    private int age;
+    private Long age;
     private String avatar;
     private String username;
     private List<String> label;
     private String openId;
-    private int diamondBalance;
-    private int loveBalance;
-    private int dislikeLeft;
+    private Long diamondBalance;
+    private Long loveBalance;
+    private Long dislikeLeft;
     private boolean localMatch;//true 表示开启本地匹配 ， false 表示没有开启本地匹配
     private String sig;
 
@@ -31,11 +31,11 @@ public class User implements Comparable{
         this.localMatch = localMatch;
     }
 
-    public int getDislikeLeft() {
+    public Long getDislikeLeft() {
         return dislikeLeft;
     }
 
-    public void setDislikeLeft(int dislikeLeft) {
+    public void setDislikeLeft(Long dislikeLeft) {
         this.dislikeLeft = dislikeLeft;
     }
 
@@ -47,19 +47,19 @@ public class User implements Comparable{
         this.openId = openId;
     }
 
-    public int getDiamondBalance() {
+    public Long getDiamondBalance() {
         return diamondBalance;
     }
 
-    public void setDiamondBalance(int diamondBalance) {
+    public void setDiamondBalance(Long diamondBalance) {
         this.diamondBalance = diamondBalance;
     }
 
-    public int getLoveBalance() {
+    public Long getLoveBalance() {
         return loveBalance;
     }
 
-    public void setLoveBalance(int loveBalance) {
+    public void setLoveBalance(Long loveBalance) {
         this.loveBalance = loveBalance;
     }
 
@@ -103,11 +103,11 @@ public class User implements Comparable{
         this.gender = gender;
     }
 
-    public int getAge() {
+    public Long getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Long age) {
         this.age = age;
     }
 

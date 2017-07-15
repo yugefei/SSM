@@ -86,8 +86,8 @@
     </update>
 
     <insert id="insertResume">
-        insert into user(openId,username,birthday,diamondBalance,loveBalance,dislikeLeft,localMatch)
-        values(#{openId},#{vo.username},#{vo.birthday},0,5,0,false)
+        insert into user(openId,username,gender,birthday,diamondBalance,loveBalance,dislikeLeft,localMatch)
+        values(#{openId},#{vo.username},"男",#{vo.birthday},0,5,0,false)
     </insert>
 <!--
     <update id="changeMatch">

@@ -132,19 +132,19 @@ public class UserController extends BaseController {
     // 点击钻石+5s testok
     @RequestMapping(value = "/clickdiamond",method = RequestMethod.GET)
     @ResponseBody
-    public Response<Map<String,Integer>> clickDiamond(@RequestHeader("token")String token){
+    public Response<Map<String,Long>> clickDiamond(@RequestHeader("token")String token){
         String openId = userService.findOpenIdByToken(token);
         if(userService.getResume(openId).getDiamondBalance()<1)
-            return new Response<Map<String, Integer>>(ResultCode.ERROR_DEFAULT_CODE,"钻石不够");
+            return new Response<Map<String, Long>>(ResultCode.ERROR_DEFAULT_CODE,"钻石不够");
         if(userService.clickDiamond(openId))
         {
             User user = userService.getResume(openId);
-            int diamondBalance = user.getDiamondBalance();
-            Map<String, Integer> map = new HashMap<String,Integer>();
+            Long diamondBalance = user.getDiamondBalance();
+            Map<String, Long> map = new HashMap<String,Long>();
             map.put("diamonBalance",diamondBalance);
-            return new Response<Map<String,Integer>>(map);
+            return new Response<Map<String,Long>>(map);
         }
-        return new Response<Map<String, Integer>>(ResultCode.ERROR_DEFAULT_CODE,"error");
+        return new Response<Map<String, Long>>(ResultCode.ERROR_DEFAULT_CODE,"error");
 
     }
 
