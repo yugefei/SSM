@@ -50,8 +50,8 @@ public class PeerManager {
             else{
                 User u = userToPeer.poll();
                 UserPeer peer = new UserPeer(u, user,this.generateRoomId());
-                peeredUsers.put(u, new WeakReference<>(peer));
-                peeredUsers.put(user,new WeakReference<>(peer));
+                peeredUsers.put(u, new WeakReference<UserPeer>(peer));
+                peeredUsers.put(user,new WeakReference<UserPeer>(peer));
 
                 return peer;
             }

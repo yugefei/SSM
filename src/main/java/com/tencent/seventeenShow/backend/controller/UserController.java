@@ -116,7 +116,7 @@ public class UserController extends BaseController {
         User user = userService.getResume(userService.findOpenIdByToken(token));
         UserPeer peer =  PeerManager.g().getMatchResult(user);
         if(peer == null) return new Response<PeerResultVo>(ResultCode.ERROR_NOT_PEERED, "not peered");
-        else return new Response<>(new PeerResultVo(peer.getPeer(user.getOpenId()), peer.getRoomNumber()));
+        else return new Response<PeerResultVo>(new PeerResultVo(peer.getPeer(user.getOpenId()), peer.getRoomNumber()));
     }
 
     // 点击钻石+5s
@@ -128,9 +128,9 @@ public class UserController extends BaseController {
         {
             User user = userService.getResume(openId);
             int diamondBalance = user.getDiamondBalance();
-            Map<String, Integer> map = new HashMap<>();
+            Map<String, Integer> map = new HashMap<String,Integer>();
             map.put("diamonBalance",diamondBalance);
-            return new Response<>(map);
+            return new Response<Map<String,Integer>>(map);
         }
         return new Response<Map<String, Integer>>(ResultCode.ERROR_DEFAULT_CODE,"error");
 
