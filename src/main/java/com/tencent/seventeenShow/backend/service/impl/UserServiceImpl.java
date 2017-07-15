@@ -160,7 +160,7 @@ public class UserServiceImpl  implements UserService{
     }
 
     @Override
-    public int getLoveNum(String openId) {
+    public Long getLoveNum(String openId) {
         return userMapper.getLoveNum(openId);
     }
 

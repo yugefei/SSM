@@ -54,6 +54,6 @@ public interface UserMapper {
     User getFriendInfo(@Param("openId")String openId);
 
     int decLove(@Param("openId")String openId);
-    int getLoveNum(@Param("openId")String openId);
+    Long getLoveNum(@Param("openId")String openId);
 
 }
