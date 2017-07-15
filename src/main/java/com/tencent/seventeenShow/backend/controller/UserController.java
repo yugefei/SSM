@@ -242,7 +242,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public Response localMatch(@RequestHeader("token")String token) {
         String openId = userService.findOpenIdByToken(token);
-        if( userService.getResume(openId).getLocalMatch() == 1 )
+        if( userService.getResume(openId).getLocalMatch() == true )
             return  new Response<Integer>();
         return new Response<Integer>(ResultCode.ERROR_DEFAULT_CODE,"没有成功开启本地匹配");
 
