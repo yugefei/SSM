@@ -28,7 +28,7 @@ public interface UserService {
 
 
 
-    boolean firstLogin(String accessToken, String openId, String token, Date expire);
+    boolean firstLogin(String accessToken, String openId, String token, Date expire, String sig);
 
     com.tencent.seventeenShow.backend.model.Token findTokenByOpenId(String openId);
 

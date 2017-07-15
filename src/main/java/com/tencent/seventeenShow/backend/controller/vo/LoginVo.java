@@ -1,13 +1,39 @@
 package com.tencent.seventeenShow.backend.controller.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.tencent.seventeenShow.backend.model.User;
 
 /**
  * Created by Edward on 2017/2/7 007.
  */
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+
 public class LoginVo {
     private String token;
-    private boolean singed;
+    private Boolean signed;
+    private String sig;
+    public LoginVo(String token, Boolean signed){
+        this.token = token;
+        this.signed = signed;
+    }
+
+    public LoginVo(String token, Boolean signed, String sig) {
+        this.token = token;
+        this.signed = signed;
+        this.sig = sig;
+    }
+
+    public String getSig() {
+        return sig;
+    }
+
+    public void setSig(String sig) {
+        this.sig = sig;
+    }
+
+    public LoginVo(String token){
+        this.token = token;
+    }
 
     public String getToken() {
         return token;
@@ -17,16 +43,11 @@ public class LoginVo {
         this.token = token;
     }
 
-    public boolean isSinged() {
-        return singed;
+    public Boolean getSigned() {
+        return signed;
     }
 
-    public void setSinged(boolean singed) {
-        this.singed = singed;
-    }
-
-    public LoginVo(String token, boolean singed) {
-        this.token = token;
-        this.singed = singed;
+    public void setSigned(Boolean signed) {
+        this.signed = signed;
     }
 }

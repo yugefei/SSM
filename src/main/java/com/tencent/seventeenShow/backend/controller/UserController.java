@@ -14,6 +14,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -35,64 +37,67 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
-    //第一次登录
-    public Response<LoginVo> firstLogin( LoginForm form){
+    public Response<LoginVo> firstLogin(LoginForm form){
 
         if(userService.findTokenByOpenId(form.getOpenId())!=null)
         {
-            String token = userService.findTokenByOpenId(form.getOpenId()).getToken();
+            Token token = userService.findTokenByOpenId(form.getOpenId());
 
-            return new Response<LoginVo>(new LoginVo(token, true));
+            return new Response<LoginVo>(new LoginVo(token.getToken(), true, token.getSig()));
         }
+
         String tokenAndId = form.getAccessToken() +form.getOpenId() + System.currentTimeMillis();
 
-        String token = Utils.MD5(tokenAndId);
+        String token = Utils.getHash(tokenAndId);
         long timeInterval = 24 * 60 * 60 * 1000 ;
         long expire = System.currentTimeMillis() + timeInterval;
-        Date date = new Date(expire);
-        userService.firstLogin(form.getAccessToken(), form.getOpenId(), token, date);
-        return new Response<LoginVo>(new LoginVo(token, false));
+        String sig = null;
+        try{
+            sig = Utils.getSig(form.getOpenId());
+        }catch(IOException e){
+            return new Response<LoginVo>(ResultCode.ERROR_OPERATION_FAILED,"failed to get Sig");
+        }
+        userService.firstLogin(form.getAccessToken(), form.getOpenId(), token, new Date(expire), sig);
+        return new Response<LoginVo>(new LoginVo(token, false,sig));
 
     }
 
-
-        //刷新Token
+    //刷新Token
     @RequestMapping(value = "/refreshToken",method = RequestMethod.POST)
     @ResponseBody
-    public Response<String> refreshToken( OAuthForm form) {
+    public Response<LoginVo> refreshToken(OAuthForm form) {
+
         long timeInterval = 24 * 60 * 60 * 1000;
         if (userService.findTokenByOpenId(form.getOpenId())!= null) {
-//            String tokenByFind = userService.findTokenByOpenId(form.getOpenId()).getToken();
+            String tokenByFind = userService.findTokenByOpenId(form.getOpenId()).getToken();
 
             //重放攻击
-            if (Math.abs(System.currentTimeMillis() - form.getTimestamp()) > 60)
-                return new Response<String>(ResultCode.REPALY_ATTACK, "校验失败");
+            if (Math.abs(System.currentTimeMillis() - form.getTimestamp()) > 60 * 1000)
+                return new Response<LoginVo>(ResultCode.REPALY_ATTACK, "校验失败");
 
             //数据被篡改
             String accessToken = userService.findTokenByOpenId(form.getOpenId()).getAccessToken();
-            String md = accessToken.substring(0, 17) + form.getOpenId().substring(17) + form.getTimestamp();
-            if (!form.getCheckSum().equals(Utils.MD5(md))) {
-                return new Response<String>(ResultCode.FALSIFY_DATA, "数据被篡改");
+            String md = accessToken.substring(0, 16) + form.getOpenId().substring(17) + form.getTimestamp();
+            if (!form.getCheckSum().toLowerCase().equals(Utils.MD5(md).toLowerCase())) {
+                return new Response<LoginVo>(ResultCode.FALSIFY_DATA, "数据被篡改");
             }
 
             //toekn 过期
             if (System.currentTimeMillis() > userService.findTokenByOpenId(form.getOpenId()).getExpire().getTime()) {
                 String tmp = form.getOpenId() + userService.findTokenByOpenId(form.getOpenId()).getAccessToken() + System.currentTimeMillis();
-                String newToken = Utils.MD5(tmp);
+                String newToken = Utils.getHash(tmp);
                 long expire = System.currentTimeMillis() + timeInterval;
+                userService.updateToken(form.getOpenId(), newToken, new Date(expire));
 
-                Date date = new Date(expire);
-                userService.updateToken(form.getOpenId(), newToken, date);
-
-                return new Response<String>(ResultCode.OK_CODE, "新的token", newToken);
+                return new Response<LoginVo>(new LoginVo(newToken));
             }
 
-            Date expire = new Date(userService.findTokenByOpenId(form.getOpenId()).getExpire().getTime() + timeInterval);
-            userService.updateExpire(form.getOpenId(),expire);
+            long expire = userService.findTokenByOpenId(form.getOpenId()).getExpire().getTime() + timeInterval;
+            userService.updateExpire(form.getOpenId(),new Date(expire));
 
-            return new Response<String>(ResultCode.OK_CODE, "success", userService.findTokenByOpenId(form.getOpenId()).getToken());
+            return new Response<LoginVo>(ResultCode.OK_CODE, "success", new LoginVo(userService.findTokenByOpenId(form.getOpenId()).getToken()));
         }
-        return new Response<String>(ResultCode.ERROR_PARAMETER_WRONG, "无效的Token");
+        return new Response<LoginVo>(ResultCode.ERROR_PARAMETER_WRONG, "无效的Token");
     }
 
     //我的标签

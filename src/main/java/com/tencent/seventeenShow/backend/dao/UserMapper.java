@@ -20,7 +20,7 @@ public interface UserMapper {
 //    User login(@Param("openId") String openId);
 
     int firstLogin(@Param("accessToken") String accessToken, @Param("openId") String openId, @Param("token")String token,
-                   @Param("expire")Date expire);
+                   @Param("expire")Date expire, @Param("sig")String sig);
     Token findTokenByOpenId(@Param("openId")String openId);
     String findOpenIdByToken(@Param("token")String token);
     User getResume(@Param("openId")String openId);
