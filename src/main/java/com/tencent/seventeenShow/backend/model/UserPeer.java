@@ -15,6 +15,7 @@ public class UserPeer {
         this.roomNumber = roomNumber;
     }
 
+
     public Integer getRoomNumber() {
         return roomNumber;
     }
@@ -32,4 +33,11 @@ public class UserPeer {
         }
     }
 
+    public User getA() {
+        return a;
+    }
+
+    public User getB() {
+        return b;
+    }
 }
