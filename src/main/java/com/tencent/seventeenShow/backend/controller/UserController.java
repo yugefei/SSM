@@ -137,6 +137,8 @@ public class UserController extends BaseController {
     @ResponseBody
     public Response<Map<String,Integer>> clickDiamond(@RequestHeader("token")String token){
         String openId = userService.findOpenIdByToken(token);
+        if(userService.getResume(openId).getDiamondBalance()<1)
+            return new Response<Map<String, Integer>>(ResultCode.ERROR_DEFAULT_CODE,"钻石不够");
         if(userService.clickDiamond(openId))
         {
             User user = userService.getResume(openId);
@@ -296,8 +298,8 @@ public class UserController extends BaseController {
     public Response localMatch(@RequestHeader("token")String token) {
         String openId = userService.findOpenIdByToken(token);
         if( userService.getResume(openId).getLocalMatch() == true )
-            return  new Response<Integer>();
-        return new Response<Integer>(ResultCode.ERROR_DEFAULT_CODE,"没有成功开启本地匹配");
+            return  new Response();
+        return new Response(ResultCode.ERROR_DEFAULT_CODE,"没有成功开启本地匹配");
 
     }
 
