@@ -5,8 +5,24 @@ package com.tencent.seventeenShow.backend.model;
  * All Rights Reserved
  */
 public class UserPeer {
+    private static int kUSER_CLICK_LIKE = 1;
+    private static int kUSER_CLICK_DISLIKE = 2;
+    private static int kUSER_UNCLICK = 0;
+
+    public static int kMATCHED = 1;
+    public static int kUNMATCHED = 2;
+    public static int kRESULT_UNKNOWN = 0;
+
     private User a;
     private User b;
+    private int aClickResult = kUSER_UNCLICK;
+    private int bClickResult = kUSER_UNCLICK;
+
+    private boolean aResultPublished = false;
+    private boolean bResultPublished = false;
+
+    private boolean canDelete = false;
+
     private Integer roomNumber;
 
     public UserPeer(User a, User b, Integer roomNumber) {
@@ -14,7 +30,6 @@ public class UserPeer {
         this.b = b;
         this.roomNumber = roomNumber;
     }
-
 
     public Integer getRoomNumber() {
         return roomNumber;
@@ -40,4 +55,63 @@ public class UserPeer {
     public User getB() {
         return b;
     }
+
+    public void clickLike(String openId){
+        if(openId == null)
+            throw new NullPointerException("openId should not be null");
+
+        if(openId.equals(a.getOpenId())){
+            aClickResult = kUSER_CLICK_LIKE;
+        }else if (openId.equals(b.getOpenId())){
+            bClickResult = kUSER_CLICK_LIKE;
+        }else{
+            throw new NullPointerException("the user is not in peer");
+        }
+    }
+
+    public void clickDislike(String openId){
+        if(openId == null)
+            throw new NullPointerException("openId should not be null");
+
+        if(openId.equals(a.getOpenId())){
+            aClickResult = kUSER_CLICK_DISLIKE;
+        }else if (openId.equals(b.getOpenId())){
+            bClickResult = kUSER_CLICK_DISLIKE;
+        }else{
+            throw new NullPointerException("the user is not in peer");
+        }
+    }
+
+    public int matchResult(String openId){
+        if(aClickResult == kUSER_CLICK_LIKE && bClickResult ==kUSER_CLICK_LIKE){
+            this.setResultPublished(openId);
+            return kMATCHED;
+        }
+
+
+        if(aClickResult != kUSER_UNCLICK && bClickResult != kUSER_UNCLICK){
+            this.setResultPublished(openId);
+            return kUNMATCHED;
+        }
+
+        return kRESULT_UNKNOWN;
+    }
+
+    private void setResultPublished(String openId){
+        if(openId == null)
+            throw new NullPointerException("openId should not be null");
+
+        if(openId.equals(a.getOpenId())){
+            aResultPublished = true;
+        }else if (openId.equals(b.getOpenId())){
+            bResultPublished = true;
+        }else{
+            throw new NullPointerException("the user is not in peer");
+        }
+    }
+
+    public boolean isCanDelete() {
+        return aResultPublished && bResultPublished;
+    }
+
 }

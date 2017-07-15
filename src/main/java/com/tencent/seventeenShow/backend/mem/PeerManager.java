@@ -11,6 +11,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 
+import static com.tencent.seventeenShow.backend.model.UserPeer.kRESULT_UNKNOWN;
+
 /**
  * Created by EdwardZhou on 2017/7/15.
  * All Rights Reserved
@@ -39,7 +41,7 @@ public class PeerManager {
     public UserPeer getMatchResult(User user){
         if(peeredUsers.containsKey(user)) //已匹配, 返回couple
             return peeredUsers.get(user).get();
-        
+
         if(userToPeer.contains(user)){ //在匹配队列中, 返回null
             return null;
         }else{
@@ -63,6 +65,26 @@ public class PeerManager {
         userToPeer.remove(user);
 //        peers.remove(peeredUsers.get(user).get());
         peeredUsers.remove(user);
+    }
+
+    public void clickLike(User user){
+        peeredUsers.get(user).get().clickLike(user.getOpenId());
+    }
+
+    public void clickDislike(User user){
+        peeredUsers.get(user).get().clickDislike(user.getOpenId());
+    }
+
+    public int matchResult(User user){
+        UserPeer peer = peeredUsers.get(user).get();
+        if(peer.matchResult(user.getOpenId()) != kRESULT_UNKNOWN){
+            if(peer.isCanDelete())
+                this.removePeer(user);
+
+            return peer.matchResult(user.getOpenId());
+        }else{
+            return kRESULT_UNKNOWN;
+        }
     }
 
     private Integer generateRoomId(){
