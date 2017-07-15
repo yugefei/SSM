@@ -76,6 +76,9 @@ public class PeerManager {
     }
 
     public int matchResult(User user){
+        if(!peeredUsers.containsKey(user))
+            return kRESULT_UNKNOWN;
+
         UserPeer peer = peeredUsers.get(user).get();
         if(peer.matchResult(user.getOpenId()) != kRESULT_UNKNOWN){
             if(peer.isCanDelete())
