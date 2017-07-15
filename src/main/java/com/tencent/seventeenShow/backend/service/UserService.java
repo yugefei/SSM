@@ -47,7 +47,7 @@ public interface UserService {
 
     FriendInfo getFriendInfo(String openId);
 
-    boolean addDiamond(String openId);
+    boolean addDiamond(String openId,int count);
 
 
     String findOpenIdByToken(String token);

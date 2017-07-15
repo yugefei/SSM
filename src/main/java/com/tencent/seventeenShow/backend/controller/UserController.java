@@ -214,11 +214,11 @@ public class UserController extends BaseController {
 
 */
         //充值钻石
-    @RequestMapping(value = "/addDiamond",method = RequestMethod.GET)
+    @RequestMapping(value = "/addDiamond",method = RequestMethod.POST)
     @ResponseBody
-    public Response addDiamond(@RequestHeader("token")String token) {
+    public Response addDiamond(@RequestHeader("token")String token,DiamondNum num) {
         String openId = userService.findOpenIdByToken(token);
-        if(userService.addDiamond(openId))
+        if(userService.addDiamond(openId,num.getDiamondNum()))
         {
             int diamondBalance = userService.getResume(openId).getDiamondBalance();
             return new Response();
