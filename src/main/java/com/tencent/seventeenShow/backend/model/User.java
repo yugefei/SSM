@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Edward on 2017/2/7 007.
  */
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-public class User {
+public class User implements Comparable{
     private String mobile;
     private String birthday;
     private String gender;
@@ -120,6 +120,12 @@ public class User {
 
     @Override
     public boolean equals(Object obj) {
-        return ((User)obj).getOpenId().equals(this.getOpenId());
+        return obj.getClass() == User.class && ((User) obj).getOpenId().equals(this.getOpenId());
+
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return ((User)o).getOpenId().compareTo(this.getOpenId());
     }
 }
