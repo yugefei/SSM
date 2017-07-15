@@ -34,7 +34,7 @@ public interface UserService {
 
 
 
-    Label getLabel(String token);
+    List<String> getLabel(String token);
     //开始写接口咯
 
     boolean clickDiamond(String openId);

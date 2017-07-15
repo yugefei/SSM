@@ -3,7 +3,7 @@ import com.tencent.seventeenShow.backend.conf.ResultCode;
 import com.tencent.seventeenShow.backend.controller.form.*;
 import com.tencent.seventeenShow.backend.controller.form.LoginForm;
 import com.tencent.seventeenShow.backend.controller.vo.ChangeResumeVo;
-import com.tencent.seventeenShow.backend.controller.vo.Gender;
+import com.tencent.seventeenShow.backend.controller.form.GenderForm;
 import com.tencent.seventeenShow.backend.controller.vo.LoginVo;
 import com.tencent.seventeenShow.backend.model.*;
 import com.tencent.seventeenShow.backend.service.UserService;
@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.util.Date;
-
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -94,14 +96,13 @@ public class UserController extends BaseController {
     //我的标签
     @RequestMapping(value = "/getlabel",method = RequestMethod.GET)
     @ResponseBody
-    public Response<Label> getLabel(@RequestHeader("token")String token){
+    public Response<List<String>> getLabel(@RequestHeader("token")String token){
         if(userService.findOpenIdByToken(token)!=null)
         {
             String openId = userService.findOpenIdByToken(token);
-            Label label = userService.getLabel(openId);
-            return new Response<Label>(ResultCode.OK_CODE,"success",label);
+            return new Response<List<String>>(ResultCode.OK_CODE,"success",userService.getLabel(openId));
         }
-        return new Response<Label>(ResultCode.ERROR_DEFAULT_CODE,"无用户标签信息",null);
+        return new Response<List<String>>(ResultCode.ERROR_DEFAULT_CODE,"无用户标签信息");
     }
 
 
@@ -111,13 +112,18 @@ public class UserController extends BaseController {
     // 点击钻石+5s
     @RequestMapping(value = "/clickdiamond",method = RequestMethod.GET)
     @ResponseBody
-    public Response<Integer> clickDiamond(@RequestHeader("token")String token){
+    public Response<Map<String,Integer>> clickDiamond(@RequestHeader("token")String token){
         String openId = userService.findOpenIdByToken(token);
-        userService.clickDiamond(openId);
+        if(userService.clickDiamond(openId))
+        {
+            User user = userService.getResume(openId);
+            int diamondBalance = user.getDiamondBalance();
+            Map<String, Integer> map = new HashMap<String, Integer>();
+            map.put("diamonBalance",diamondBalance);
+            return new Response(map);
+        }
+        return new Response<Map<String, Integer>>(ResultCode.ERROR_DEFAULT_CODE,"error");
 
-        User user = userService.getResume(openId);
-        int diamondBalance = user.getDiamondBalance();
-        return new Response<Integer>(ResultCode.OK_CODE,"点击钻石成功",diamondBalance);
     }
 
 /*
@@ -169,9 +175,9 @@ public class UserController extends BaseController {
         {
             String openId = userService.findOpenIdByToken(token);
             User user = userService.getResume(openId);
-            return new Response<User>(ResultCode.OK_CODE,"success",user);
+            return new Response<User>(user);
         }
-        return new Response<User>(ResultCode.ERROR_DEFAULT_CODE,"无用户信息",null);
+        return new Response<User>(ResultCode.ERROR_DEFAULT_CODE,"无用户信息");
     }
 /*
     //获取好友信息
@@ -195,53 +201,50 @@ public class UserController extends BaseController {
         //充值钻石
     @RequestMapping(value = "/addDiamond",method = RequestMethod.GET)
     @ResponseBody
-    public Response<Integer> addDiamond(@RequestHeader("token")String token) {
+    public Response addDiamond(@RequestHeader("token")String token) {
         String openId = userService.findOpenIdByToken(token);
         if(userService.addDiamond(openId))
         {
             int diamondBalance = userService.getResume(openId).getDiamondBalance();
-            return new Response<Integer>(ResultCode.OK_CODE,"success",diamondBalance);
+            return new Response();
         }
-        return new Response<Integer>(ResultCode.ERROR_DEFAULT_CODE,"充值失败",0);
+        return new Response(ResultCode.ERROR_DEFAULT_CODE,"充值失败");
     }
 
 
         //修改个人资料
     @RequestMapping(value = "/modifyresume",method = RequestMethod.GET)
     @ResponseBody
-    public Response<User> modifyResume(@RequestHeader("token")String token, ChangeResumeVo vo) {
+    public Response modifyResume(@RequestHeader("token")String token, ChangeResumeVo vo) {
         String openId = userService.findOpenIdByToken(token);
         if(userService.modifyResume(openId,vo))
         {
-            User user = userService.getResume(openId);
-            return new Response<User>(ResultCode.OK_CODE,"修改个人资料成功",user);
+            return new Response();
 
         }
-       return new Response<User>(ResultCode.ERROR_DEFAULT_CODE,"修改个人资料失败",null);
+       return new Response(ResultCode.ERROR_DEFAULT_CODE,"修改个人资料失败");
     }
 
         //  修改性别
-    @RequestMapping(value = "/modifygender",method = RequestMethod.GET)
+    @RequestMapping(value = "/modifygender",method = RequestMethod.POST)
     @ResponseBody
-    public Response<String> modifyGender(@RequestHeader("token")String token, Gender gender) {
+    public Response modifyGender(@RequestHeader("token")String token, GenderForm gender) {
         String openId = userService.findOpenIdByToken(token);
         if(userService.modifyGender(openId,gender.getGender()))
         {
-            String gen = userService.getResume(openId).getGender();
-            return new Response<String>(ResultCode.OK_CODE,"修改性别成功",gen);
+            return new Response();
         }
-        return new Response<String>(ResultCode.ERROR_DEFAULT_CODE,"修改性别失败",null);
+        return new Response(ResultCode.ERROR_DEFAULT_CODE,"修改性别失败");
 
     }
-
     // 是否开启本地匹配
     @RequestMapping(value = "/localMatch",method = RequestMethod.GET)
     @ResponseBody
-    public Response<Integer> localMatch(@RequestHeader("token")String token) {
+    public Response localMatch(@RequestHeader("token")String token) {
         String openId = userService.findOpenIdByToken(token);
         if( userService.getResume(openId).getLocalMatch() == 1 )
-            return  new Response<Integer>(ResultCode.OK_CODE,"成功开启本地匹配",1);
-        return new Response<Integer>(ResultCode.ERROR_DEFAULT_CODE,"没有成功开启本地匹配",0);
+            return  new Response<Integer>();
+        return new Response<Integer>(ResultCode.ERROR_DEFAULT_CODE,"没有成功开启本地匹配");
 
     }
 }

@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.security.access.method.P;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import com.tencent.seventeenShow.backend.model.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +24,7 @@ public interface UserMapper {
     Token findTokenByOpenId(@Param("openId")String openId);
     String findOpenIdByToken(@Param("token")String token);
     User getResume(@Param("openId")String openId);
-    Label getLabel(@Param("token")String token);
+    List<String> getLabel(@Param("token")String token);
 
     int updateToken(@Param("openId")String openId, @Param("newToken")String newToken, @Param("expire")Date expire);
     int updateExpire(@Param("openId")String openId,@Param("expire")Date expire);

@@ -60,7 +60,7 @@
     </select>
 
 
-    <select id="getLabel" resultType="Label" parameterType="String">
+    <select id="getLabel" resultType="String" parameterType="String">
         select label
         from `user`
         where openId = #{openId}

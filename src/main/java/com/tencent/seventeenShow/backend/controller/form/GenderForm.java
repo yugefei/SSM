@@ -1,9 +1,9 @@
-package com.tencent.seventeenShow.backend.controller.vo;
+package com.tencent.seventeenShow.backend.controller.form;
 
 /**
  * Created by gefeiyu on 2017/7/15.
  */
-public class Gender {
+public class GenderForm {
     private  String gender;
 
     public String getGender() {

@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -36,7 +37,7 @@ public class UserServiceImpl  implements UserService{
     }
 
     @Override
-    public Label getLabel(String token) {
+    public List<String> getLabel(String token) {
         return userMapper.getLabel(token);
     }
 
