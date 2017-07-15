@@ -159,10 +159,6 @@ public class UserServiceImpl  implements UserService{
         return userMapper.getFriendInfo(openId);
     }
 
-    @Override
-    public boolean preResume(String openId, PreInfo info) {
-        return false;
-    }
 
 
 }

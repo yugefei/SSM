@@ -144,16 +144,11 @@
         from `user`
         where openId = #{openId}
     </select>
-
-
+    
     <select id="getFriends" resultType="String" parameterType="String">
         select friendOpenId
         from `user`
         where openId = #{openId}
     </select>
 
-
-    <update id="preResume" parameterType="PreInfo">
-        UPDATE user SET  username =#{preInfo.username} and diamondBalance = #{preInfo.diamond} and loveBalance = #{preInfo.love} where openId = #{openId}
-    </update>
 </mapper>

@@ -42,12 +42,12 @@ public class UserController extends BaseController {
 
             return new Response<LoginVo>(new LoginVo(token.getToken(), true, token.getSig()));
         }
-        PreInfo preInfo = new PreInfo();
-        preInfo.setDiamond(0);
-        preInfo.setLove(5);
         String name = "17show" +form.getOpenId().substring(0,4);
-        preInfo.setUsername(name);
-        userService.preResume(form.getOpenId(),preInfo);//初始化个人信息
+
+        ChangeResumeVo vo = new ChangeResumeVo();
+        vo.setUsername(name);
+
+        userService.modifyResume(form.getOpenId(),vo);
         String tokenAndId = form.getAccessToken() +form.getOpenId() + System.currentTimeMillis();
 
         String token = Utils.getHash(tokenAndId);

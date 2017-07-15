@@ -69,5 +69,4 @@ public interface UserService {
 
     User getFriendInfo(String openId);
 
-    boolean preResume(String openId,PreInfo info);//初始化个人信息
 }

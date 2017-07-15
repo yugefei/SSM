@@ -53,5 +53,5 @@ public interface UserMapper {
     List<String> getFriends(@Param("openId")String openId);
     User getFriendInfo(@Param("openId")String openId);
 
-    int preResume(@Param("openId")String openId,@Param("preInfo")PreInfo preInfo);
+
 }
