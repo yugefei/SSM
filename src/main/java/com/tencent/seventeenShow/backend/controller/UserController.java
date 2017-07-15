@@ -36,7 +36,7 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
     //第一次登录
-    public Response<LoginVo> firstLogin(@RequestBody LoginForm form){
+    public Response<LoginVo> firstLogin( LoginForm form){
 
         if(userService.findTokenByOpenId(form.getOpenId())!=null)
         {
@@ -59,7 +59,7 @@ public class UserController extends BaseController {
         //刷新Token
     @RequestMapping(value = "/refreshToken",method = RequestMethod.POST)
     @ResponseBody
-    public Response<String> refreshToken(@RequestBody OAuthForm form) {
+    public Response<String> refreshToken( OAuthForm form) {
         long timeInterval = 24 * 60 * 60 * 1000;
         if (userService.findTokenByOpenId(form.getOpenId())!= null) {
 //            String tokenByFind = userService.findTokenByOpenId(form.getOpenId()).getToken();
