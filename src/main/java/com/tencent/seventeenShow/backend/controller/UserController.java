@@ -100,7 +100,7 @@ public class UserController extends BaseController {
         return new Response<LoginVo>(ResultCode.ERROR_PARAMETER_WRONG, "无效的Token");
     }
 
-    //我的标签
+    //我的标签 testok
     @RequestMapping(value = "/getlabel",method = RequestMethod.GET)
     @ResponseBody
     public Response<List<String>> getLabel(@RequestHeader("token")String token){
@@ -214,7 +214,7 @@ public class UserController extends BaseController {
     }
 
 */
-        //充值钻石
+        //充值钻石 testok
     @RequestMapping(value = "/addDiamond",method = RequestMethod.POST)
     @ResponseBody
     public Response addDiamond(@RequestHeader("token")String token,DiamondNum num) {
@@ -227,7 +227,7 @@ public class UserController extends BaseController {
     }
 
 
-        //修改个人资料
+        //修改个人资料 testok
     @RequestMapping(value = "/modifyresume",method = RequestMethod.POST)
     @ResponseBody
     public Response modifyResume(@RequestHeader("token")String token, ChangeResumeVo vo) {
