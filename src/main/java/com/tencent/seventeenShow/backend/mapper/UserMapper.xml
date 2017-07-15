@@ -43,7 +43,7 @@
         UPDATE token_list SET token = #{newToken} and SET expire = #{expire} where openId = #{openId}
     </update>
 
-    <update id="upDateExpire">
+    <update id="updateExpire">
         UPDATE token_list SET expire = #{expire} where openId = #{openId}
     </update>
 
