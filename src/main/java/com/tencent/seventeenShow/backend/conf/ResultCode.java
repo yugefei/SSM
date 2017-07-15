@@ -26,4 +26,7 @@ public class ResultCode {
     public static final Long FALSIFY_DATA = 337l;
     public static final Long TOKEN_EXPIRED = 338l;
 
+    public static final Long ERROR_NOT_PEERED = 400L;
+
+
 }
