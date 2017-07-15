@@ -20,11 +20,5 @@ public class FeedbackController {
     @Autowired
     private FeedbackService feedbackService;
 
-    @RequestMapping(value = "/new", method = RequestMethod.POST)
-    @ResponseBody
-    public Response addFeedback(@RequestHeader("token")String token, @RequestBody Feedback feedback){
-        Long userid = TokenManager.getInstance().getUser(token).getId();
-        feedback.setUserId(userid);
-        return new Response(feedbackService.addFeedback(feedback), ResultCode.ERROR_DEFAULT_CODE,"添加反馈失败");
-    }
+
 }

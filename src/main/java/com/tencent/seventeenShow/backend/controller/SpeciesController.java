@@ -35,37 +35,6 @@ public class SpeciesController {
         return new Response<Map<String, List<Category>>>(speciesService.categories());
     }
 
-    @RequestMapping(value = "/{speciesId}",method = RequestMethod.GET)
-    @ResponseBody
-    public Response<Species> getSpeciesInfo(@PathVariable("speciesId")Long speciesId, HttpServletRequest request){
-        String token;
-        Long userId = 0L;
-
-        token = request.getHeader("token");
-        if(token != null){
-            User user = TokenManager.getInstance().getUser(token);
-            if(user != null){
-                userId = user.getId();
-            }
-        }
-
-        Species species = speciesService.getSpeciesInfo(speciesId, userId);
-        species.getFeatures().remove("id"); //jackson转换的时候会报id错误... 去掉. [脏代码]
-        return new Response<Species>(species);
-    }
-
-    @RequestMapping(value = "/addToCollection",method = RequestMethod.POST)
-    @ResponseBody
-    public Response addToCollection(HttpServletRequest request,@RequestBody UserSpeciesForm form,@RequestHeader("token")String token){
-        Long userId = TokenManager.getInstance().getUser(token).getId();
-        return new Response(speciesService.addSpeciesToCollection(form.getSpeciesId(),userId), ResultCode.ERROR_OPERATION_FAILED,"添加收藏失败");
-    }
-    @ResponseBody
-    @RequestMapping(value = "/collection/{speciesId}", method = RequestMethod.DELETE)
-    public Response removeCollection (@RequestHeader("token")String token, @PathVariable("speciesId")Long speciesId){
-        Long userId = TokenManager.getInstance().getUser(token).getId();
-        return new Response(speciesService.removeCollection(speciesId, userId), ResultCode.ERROR_DEFAULT_CODE, "取消收藏失败");
-    }
 
     @RequestMapping(value = "/collection/{userId}",method = RequestMethod.GET)
     @ResponseBody

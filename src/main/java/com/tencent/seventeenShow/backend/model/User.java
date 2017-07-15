@@ -9,7 +9,6 @@ import java.util.List;
  */
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class User {
-    private Long id;
     private String mobile;
     private String birthday;
     private String gender;
@@ -18,15 +17,25 @@ public class User {
     private String username;
     private List<String> label;
     private String openId;
+    private int diamondBalance;
+    private int loveBalance;
+    private int dislikeLeft;
+    private int localMatch;//1表示开启本地匹配 ， 0 表示没有开启本地匹配
 
-    private String nickname;
-
-    public String getNickname() {
-        return nickname;
+    public int getLocalMatch() {
+        return localMatch;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setLocalMatch(int localMatch) {
+        this.localMatch = localMatch;
+    }
+
+    public int getDislikeLeft() {
+        return dislikeLeft;
+    }
+
+    public void setDislikeLeft(int dislikeLeft) {
+        this.dislikeLeft = dislikeLeft;
     }
 
     public String getOpenId() {
@@ -36,9 +45,6 @@ public class User {
     public void setOpenId(String openId) {
         this.openId = openId;
     }
-
-    private int diamondBalance;
-    private int loveBalance;
 
     public int getDiamondBalance() {
         return diamondBalance;
@@ -70,13 +76,6 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getMobile() {

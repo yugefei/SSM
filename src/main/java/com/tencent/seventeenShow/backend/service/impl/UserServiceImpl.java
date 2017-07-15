@@ -4,16 +4,11 @@ import com.tencent.seventeenShow.backend.controller.vo.ChangeResumeVo;
 import com.tencent.seventeenShow.backend.dao.UserMapper;
 import com.tencent.seventeenShow.backend.model.*;
 import com.tencent.seventeenShow.backend.service.UserService;
-import com.tencent.seventeenShow.backend.utils.exception.MobileOccupiedException;
-import com.tencent.seventeenShow.backend.utils.exception.StudentIdOccupiedException;
-import com.tencent.seventeenShow.backend.utils.exception.StudentNameException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
 
 /**
  * Created by Edward on 2017/2/7 007.
@@ -72,35 +67,6 @@ public class UserServiceImpl  implements UserService{
     }
 
 
-    @Override
-    public boolean userNameTaken(String userName) {
-        return userMapper.mobileOccupied(userName) >= 1;
-    }
-
-    @Override
-    public boolean resetPwd(String userId, String pwd) {
-        return userMapper.setPwd(userId,pwd) >= 1;
-    }
-
-    @Override
-    public boolean studentRegistered(String studentId) {
-        return userMapper.studentIdRegistered(studentId) >= 1;
-    }
-
-    @Override
-    public boolean setAvatar(String avatarUrl, Long userId) {
-        return userMapper.setAvatar(avatarUrl, userId) == 1;
-    }
-
-    @Override
-    public boolean setPwd(String originPwd, String newPwd, Long userId) {
-        return userMapper.setPwdWithOrigin(originPwd, newPwd, userId) == 1;
-    }
-
-    @Override
-    public boolean changeMobile(String mobile, Long userId) {
-        return userMapper.rebundingMobile(mobile, userId) == 1;
-    }
 
 
 //开始写接口咯
@@ -147,7 +113,6 @@ public class UserServiceImpl  implements UserService{
     }
 */
 
-
     @Override
     public FriendInfo getFriendInfo(String openId) {
         return userMapper.getFriendInfo(openId);
@@ -155,14 +120,23 @@ public class UserServiceImpl  implements UserService{
 
     @Override
     public boolean addDiamond(String openId) {
-        return false;
+        return userMapper.addDiamond(openId)>=1;
     }
 
     @Override
     public boolean modifyResume(String openId, ChangeResumeVo changeResumeVo) {
-        return false;
+        return userMapper.modifyResume(openId,changeResumeVo)>=1;
     }
 
+    @Override
+    public boolean modifyGender(String openId, String gender) {
+        return userMapper.modifyGender(openId,gender)>=1;
+    }
+
+    @Override
+    public boolean localMatch(String openId) {
+        return userMapper.localMatch(openId)==1;
+    }
 
 }
 

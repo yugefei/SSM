@@ -82,6 +82,7 @@
     </update>
 
 
+
 <!--
     <update id="changeMatch">
         UPDATE match SET openid1 = 1 and result = openid1 + #{openId2} where openId1 = #{openId1} and openId2 = #{openId2}
@@ -107,4 +108,14 @@
     <update id="addDiamond">
         UPDATE user SET diamondBalance = diamondBalance + 5 where openId = #{openId}
     </update>
+
+    <update id="modifyResume" parameterType="com.tencent.seventeenShow.backend.controller.vo.ChangeResumeVo">
+        UPDATE user SET  username =#{vo.username} and label = #{vo.label} and age = #{vo.age}  where openId = #{openId}
+    </update>
+    <select id="localMatch" resultType="Integer" parameterType="String">
+        select localMatch
+        from `user`
+        where openId = #{openId}
+    </select>
+
 </mapper>

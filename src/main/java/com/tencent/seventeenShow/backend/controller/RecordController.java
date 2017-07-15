@@ -25,29 +25,8 @@ public class RecordController {
     @Autowired
     private RecordService recordService;
 
-    @ResponseBody
-    @RequestMapping(value = "/new", method = RequestMethod.POST)
-    public Response addRecord(@RequestBody RecordForm record, HttpServletRequest request, @RequestHeader("token")String token){
-        if(record.getNotes().size() == 0){
-            return new Response(ResultCode.ERROR_PARAMETER_WRONG, "记录无物种");
-        }
-        Long userId = TokenManager.getInstance().getUser(token).getId();
-        record.setUserId(userId);
-        recordService.addRecord(record);
-        return new Response();
-    }
 
-    @ResponseBody
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public Response editRecord(@RequestBody RecordForm record, HttpServletRequest request, @RequestHeader("token")String token){
-        if(record.getNotes().size() == 0){
-            return new Response(ResultCode.ERROR_PARAMETER_WRONG, "记录无物种");
-        }
-        Long userId = TokenManager.getInstance().getUser(token).getId();
-        record.setUserId(userId);
-        recordService.editRecord(record);
-        return new Response();
-    }
+
 
 //    @ResponseBody
 //    @RequestMapping(value = "/species/{speciesId}", method = RequestMethod.GET)
@@ -88,11 +67,6 @@ public class RecordController {
         return new Response<Record>(record);
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/{recordId}", method = RequestMethod.DELETE)
-    public Response deleteRecord(@PathVariable("recordId")Long recordId,@RequestHeader("token")String token){
-        Long userId = TokenManager.getInstance().getUser(token).getId();
-        return new Response(recordService.deleteRecord(recordId,userId), ResultCode.ERROR_DEFAULT_CODE,"无此记录");
-    }
+
 
 }

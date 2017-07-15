@@ -1,35 +1,17 @@
 package com.tencent.seventeenShow.backend.controller;
-
 import com.tencent.seventeenShow.backend.conf.ResultCode;
 import com.tencent.seventeenShow.backend.controller.form.*;
-import com.tencent.seventeenShow.backend.controller.vo.ClickDiamond;
-import com.tencent.seventeenShow.backend.controller.vo.DiamondVo;
-import com.tencent.seventeenShow.backend.controller.vo.FriendsVo;
 import com.tencent.seventeenShow.backend.controller.form.LoginForm;
-import com.tencent.seventeenShow.backend.controller.form.NewPwdForm;
-import com.tencent.seventeenShow.backend.controller.form.RegisterForm;
-import com.tencent.seventeenShow.backend.controller.form.SendSmsForm;
+import com.tencent.seventeenShow.backend.controller.vo.ChangeResumeVo;
+import com.tencent.seventeenShow.backend.controller.vo.Gender;
 import com.tencent.seventeenShow.backend.controller.vo.LoginVo;
-import com.tencent.seventeenShow.backend.mem.SmsCode.SmsCodeManager;
-import com.tencent.seventeenShow.backend.mem.SmsCode.SmsCodeSendStatus;
-import com.tencent.seventeenShow.backend.mem.SmsCode.SmsCodeType;
-import com.tencent.seventeenShow.backend.mem.TokenManager;
 import com.tencent.seventeenShow.backend.model.*;
-import com.tencent.seventeenShow.backend.mem.TokenModel;
 import com.tencent.seventeenShow.backend.service.UserService;
 import com.tencent.seventeenShow.backend.utils.Utils;
-import com.tencent.seventeenShow.backend.utils.exception.MobileOccupiedException;
-import com.tencent.seventeenShow.backend.utils.exception.StudentIdOccupiedException;
-import com.tencent.seventeenShow.backend.utils.exception.StudentNameException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import sun.nio.cs.US_ASCII;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -70,7 +52,7 @@ public class UserController extends BaseController {
     }
 
 
-
+        //刷新Token
     @RequestMapping(value = "/refreshToken",method = RequestMethod.POST)
     @ResponseBody
     public Response<String> refreshToken(@RequestBody OAuthForm form) {
@@ -210,6 +192,7 @@ public class UserController extends BaseController {
     }
 
 */
+        //充值钻石
     @RequestMapping(value = "/addDiamond",method = RequestMethod.GET)
     @ResponseBody
     public Response<Integer> addDiamond(@RequestHeader("token")String token) {
@@ -220,5 +203,45 @@ public class UserController extends BaseController {
             return new Response<Integer>(ResultCode.OK_CODE,"success",diamondBalance);
         }
         return new Response<Integer>(ResultCode.ERROR_DEFAULT_CODE,"充值失败",0);
+    }
+
+
+        //修改个人资料
+    @RequestMapping(value = "/modifyresume",method = RequestMethod.GET)
+    @ResponseBody
+    public Response<User> modifyResume(@RequestHeader("token")String token, ChangeResumeVo vo) {
+        String openId = userService.findOpenIdByToken(token);
+        if(userService.modifyResume(openId,vo))
+        {
+            User user = userService.getResume(openId);
+            return new Response<User>(ResultCode.OK_CODE,"修改个人资料成功",user);
+
+        }
+       return new Response<User>(ResultCode.ERROR_DEFAULT_CODE,"修改个人资料失败",null);
+    }
+
+        //  修改性别
+    @RequestMapping(value = "/modifygender",method = RequestMethod.GET)
+    @ResponseBody
+    public Response<String> modifyGender(@RequestHeader("token")String token, Gender gender) {
+        String openId = userService.findOpenIdByToken(token);
+        if(userService.modifyGender(openId,gender.getGender()))
+        {
+            String gen = userService.getResume(openId).getGender();
+            return new Response<String>(ResultCode.OK_CODE,"修改性别成功",gen);
+        }
+        return new Response<String>(ResultCode.ERROR_DEFAULT_CODE,"修改性别失败",null);
+
+    }
+
+    // 是否开启本地匹配
+    @RequestMapping(value = "/localMatch",method = RequestMethod.GET)
+    @ResponseBody
+    public Response<Integer> localMatch(@RequestHeader("token")String token) {
+        String openId = userService.findOpenIdByToken(token);
+        if( userService.getResume(openId).getLocalMatch() == 1 )
+            return  new Response<Integer>(ResultCode.OK_CODE,"成功开启本地匹配",1);
+        return new Response<Integer>(ResultCode.ERROR_DEFAULT_CODE,"没有成功开启本地匹配",0);
+
     }
 }

@@ -48,29 +48,18 @@ public interface UserService {
     FriendInfo getFriendInfo(String openId);
 
     boolean addDiamond(String openId);
-    boolean modifyResume(String openId, ChangeResumeVo changeResumeVo);
+
 
     String findOpenIdByToken(String token);
     User getResume(String openId);
     boolean updateToken(String openId,String newToken, Date expire);
     boolean updateExpire(String openId,Date expire);
 
-
-
+    boolean modifyResume(String openId, ChangeResumeVo changeResumeVo);
 //commentResult
 
 
+    boolean modifyGender(String openId, String gender);
 
-
-    boolean userNameTaken(String userName);
-
-    boolean studentRegistered(String studentId);
-
-    boolean resetPwd(String userName, String pwd);
-
-    boolean setAvatar(String avatarUrl, Long userId);
-
-    boolean setPwd(String originPwd, String newPwd, Long userId);
-
-    boolean changeMobile(String mobile, Long userId);
+    boolean localMatch(String openId);
 }
