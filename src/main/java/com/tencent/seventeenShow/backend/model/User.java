@@ -21,6 +21,7 @@ public class User implements Comparable{
     private int loveBalance;
     private int dislikeLeft;
     private boolean localMatch;//true 表示开启本地匹配 ， false 表示没有开启本地匹配
+    private String sig;
 
     public boolean getLocalMatch() {
         return localMatch;
@@ -116,6 +117,14 @@ public class User implements Comparable{
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getSig() {
+        return sig;
+    }
+
+    public void setSig(String sig) {
+        this.sig = sig;
     }
 
     @Override

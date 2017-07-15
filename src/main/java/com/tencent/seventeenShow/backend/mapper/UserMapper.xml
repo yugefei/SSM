@@ -148,10 +148,17 @@
         where openId = #{openId}
     </select>
 
-    <select id="getFriends" resultType="String" parameterType="String">
-        select friendOpenId
-        from `user`
-        where openId = #{openId}
+    <select id="getFriends" resultType="User" parameterType="String">
+        select
+            u.username username,
+            u.avatar avatar,
+            u.openId openId,
+            t.sig sig
+        from `user` u left join token_list t on u.openId = t.openId
+        where u.openId in
+            (select openId1 from friend_relationship where openId2 = #{openId}) or
+              u.openId in
+            (select openId2 from friend_relationship where openId1 = #{openId})
     </select>
 
     <select id="getLoveNum" resultType="Integer" parameterType="String">

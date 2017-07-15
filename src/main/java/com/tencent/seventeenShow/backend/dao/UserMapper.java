@@ -50,7 +50,7 @@ public interface UserMapper {
     int deleteLabel(@Param("openId")String openId);
     int insertLabel(@Param("openId")String openId,@Param("labels")String[] labels);
 
-    List<String> getFriends(@Param("openId")String openId);
+    List<User> getFriends(@Param("openId")String openId);
     User getFriendInfo(@Param("openId")String openId);
 
     int decLove(@Param("openId")String openId);

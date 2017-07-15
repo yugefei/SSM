@@ -308,16 +308,8 @@ public class UserController extends BaseController {
     @ResponseBody
     public Response<List<User>> getFriends(@RequestHeader("token")String token) {
         String openId = userService.findOpenIdByToken(token);
-        List<String> friendsOpenId = userService.getFriends(openId);
-        List<User> friends = new ArrayList<User>();
-        if(friendsOpenId==null)
-        {
-            return new Response<List<User>>(ResultCode.ERROR_DEFAULT_CODE,"error");
-        }
-        for(String id : friendsOpenId)
-        {
-            friends.add(userService.getFriendInfo(id));
-        }
+        List<User> friends = userService.getFriends(openId);
+
         return new Response<List<User>>(friends);
     }
 }

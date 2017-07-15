@@ -65,7 +65,7 @@ public interface UserService {
 
     boolean insertLabel(String openId,String[] tag);
 
-    List<String> getFriends(String openId);
+    List<User> getFriends(String openId);
 
     User getFriendInfo(String openId);
     int getLoveNum(String openId);

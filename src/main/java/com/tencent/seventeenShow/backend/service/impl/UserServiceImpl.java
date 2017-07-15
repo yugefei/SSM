@@ -150,7 +150,7 @@ public class UserServiceImpl  implements UserService{
     }
 
     @Override
-    public List<String> getFriends(String openId) {
+    public List<User> getFriends(String openId) {
         return userMapper.getFriends(openId);
     }
 
