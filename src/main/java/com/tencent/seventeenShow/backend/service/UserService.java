@@ -69,4 +69,6 @@ public interface UserService {
 
     User getFriendInfo(String openId);
 
+
+
 }
