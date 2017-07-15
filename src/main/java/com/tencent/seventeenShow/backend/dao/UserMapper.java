@@ -37,7 +37,6 @@ public interface UserMapper {
    // int changeMatch(@Param("openId1")String openId1,@Param("openId2")String openId2);
    // int changeNotMatch(@Param("openId1")String openId1,@Param("openId2")String openId2);
 
-    FriendInfo getFriendInfo(@Param("openId")String openId);
   //  int isMatch(@Param("openId1")String openId1,@Param("openId2")String openId2);
 
     int addDiamond(@Param("openId")String openId,@Param("count")int count);
@@ -50,4 +49,7 @@ public interface UserMapper {
     int localMatch(@Param("openId")String openId);
     int deleteLabel(@Param("openId")String openId);
     int insertLabel(@Param("openId")String openId,@Param("labels")String[] labels);
+
+    List<String> getFriends(@Param("openId")String openId);
+    User getFriendInfo(@Param("openId")String openId);
 }

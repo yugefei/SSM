@@ -16,10 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -191,6 +188,8 @@ public class UserController extends BaseController {
         {
             String openId = userService.findOpenIdByToken(token);
             User user = userService.getResume(openId);
+            List<String> label = userService.getLabel(token);
+            user.setLabel(label);
             return new Response<User>(user);
         }
         return new Response<User>(ResultCode.ERROR_DEFAULT_CODE,"无用户信息");
@@ -246,7 +245,7 @@ public class UserController extends BaseController {
         return new Response();
     }
 
-        //  修改性别
+        //  修改性别 testok
     @RequestMapping(value = "/modifygender",method = RequestMethod.POST)
     @ResponseBody
     public Response modifyGender(@RequestHeader("token")String token, GenderForm gender) {
@@ -267,5 +266,23 @@ public class UserController extends BaseController {
             return  new Response<Integer>();
         return new Response<Integer>(ResultCode.ERROR_DEFAULT_CODE,"没有成功开启本地匹配");
 
+    }
+
+    //获取好友信息
+    @RequestMapping(value = "/getFriends",method = RequestMethod.GET)
+    @ResponseBody
+    public Response<List<User>> getFriends(@RequestHeader("token")String token) {
+        String openId = userService.findOpenIdByToken(token);
+        List<String> friendsOpenId = userService.getFriends(openId);
+        List<User> friends = new ArrayList<User>();
+        if(friendsOpenId==null)
+        {
+            return new Response<List<User>>(ResultCode.ERROR_DEFAULT_CODE,"error");
+        }
+        for(String id : friendsOpenId)
+        {
+            friends.add(userService.getFriendInfo(id));
+        }
+        return new Response<List<User>>(friends);
     }
 }

@@ -8,7 +8,15 @@ import java.util.List;
 public class ChangeResumeVo {
     private String username;
     private String label;
-    private int age;
+    private  String birthday;
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
 
     public String getUsername() {
         return username;
@@ -26,11 +34,4 @@ public class ChangeResumeVo {
         this.label = label;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
 }

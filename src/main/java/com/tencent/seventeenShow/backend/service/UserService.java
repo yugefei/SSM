@@ -45,7 +45,7 @@ public interface UserService {
     boolean clickDislike(String openId);
   //  boolean isMatch(String openId1,String openId2);
 
-    FriendInfo getFriendInfo(String openId);
+
 
     boolean addDiamond(String openId,int count);
 
@@ -65,4 +65,7 @@ public interface UserService {
 
     boolean insertLabel(String openId,String[] tag);
 
+    List<String> getFriends(String openId);
+
+    User getFriendInfo(String openId);
 }

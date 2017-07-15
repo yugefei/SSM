@@ -115,10 +115,6 @@ public class UserServiceImpl  implements UserService{
     }
 */
 
-    @Override
-    public FriendInfo getFriendInfo(String openId) {
-        return userMapper.getFriendInfo(openId);
-    }
 
     @Override
     public boolean addDiamond(String openId,int count) {
@@ -144,6 +140,7 @@ public class UserServiceImpl  implements UserService{
         return userMapper.insertLabel(openId,tag)>=1;
     }
 
+
     @Override
     public boolean modifyResume(String openId, ChangeResumeVo changeResumeVo) {
         if(userMapper.resumeExists(openId)>=1){
@@ -151,6 +148,18 @@ public class UserServiceImpl  implements UserService{
         }
         return userMapper.insertResume(openId,changeResumeVo)>=1;
     }
+
+    @Override
+    public List<String> getFriends(String openId) {
+        return userMapper.getFriends(openId);
+    }
+
+    @Override
+    public User getFriendInfo(String openId) {
+        return userMapper.getFriendInfo(openId);
+    }
+
+
 }
 
 
