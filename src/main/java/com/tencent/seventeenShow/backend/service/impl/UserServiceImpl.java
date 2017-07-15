@@ -139,6 +139,17 @@ public class UserServiceImpl  implements UserService{
         return userMapper.localMatch(openId)==1;
     }
 
+    @Override
+    public boolean deleteLabel(String openId) {
+        return userMapper.deleteLabel(openId)>=1;
+    }
+
+    @Override
+    public boolean insertLabel(String openId, String[] tag) {
+        return userMapper.insertLabel(openId,tag)>=1;
+    }
+
+
 }
 
 

@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class ChangeResumeVo {
     private String username;
-    private List<String> label;
+    private String label;
     private int age;
 
     public String getUsername() {
@@ -18,11 +18,11 @@ public class ChangeResumeVo {
         this.username = username;
     }
 
-    public List<String> getLabel() {
+    public String getLabel() {
         return label;
     }
 
-    public void setLabel(List<String> label) {
+    public void setLabel(String label) {
         this.label = label;
     }
 

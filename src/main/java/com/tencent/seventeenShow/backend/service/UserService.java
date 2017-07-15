@@ -62,4 +62,8 @@ public interface UserService {
     boolean modifyGender(String openId, String gender);
 
     boolean localMatch(String openId);
+
+    boolean deleteLabel(String openId);
+    boolean insertLabel(String openId,String[] tag);
+
 }

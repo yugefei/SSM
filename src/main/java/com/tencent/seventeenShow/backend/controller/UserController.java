@@ -227,7 +227,9 @@ public class UserController extends BaseController {
     @ResponseBody
     public Response modifyResume(@RequestHeader("token")String token, ChangeResumeVo vo) {
         String openId = userService.findOpenIdByToken(token);
-        if(userService.modifyResume(openId,vo))
+        String[] label = vo.getLabel().split(",");
+
+        if(userService.modifyResume(openId,vo) && userService.deleteLabel(openId) && userService.insertLabel(openId,label))
         {
             return new Response();
 

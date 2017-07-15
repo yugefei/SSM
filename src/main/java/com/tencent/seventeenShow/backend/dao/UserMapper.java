@@ -47,4 +47,6 @@ public interface UserMapper {
     int modifyGender(@Param("openId")String openId,@Param("gender") String gender);
 
     int localMatch(@Param("openId")String openId);
+    int deleteLabel(@Param("openId")String openId);
+    int insertLabel(@Param("openId")String openId,@Param("tag")String[] tag);
 }
