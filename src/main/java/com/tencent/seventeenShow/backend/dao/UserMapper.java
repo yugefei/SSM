@@ -48,5 +48,5 @@ public interface UserMapper {
 
     int localMatch(@Param("openId")String openId);
     int deleteLabel(@Param("openId")String openId);
-    int insertLabel(@Param("openId")String openId,@Param("tag")String[] tag);
+    int insertLabel(@Param("openId")String openId,@Param("labels")String[] labels);
 }

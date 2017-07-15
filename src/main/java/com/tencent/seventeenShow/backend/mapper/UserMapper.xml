@@ -125,6 +125,10 @@
     </delete>
 
     <insert id="insertLabel">
-        insert into label(openId,tag) values(#{openId},#{tag})
+        insert into label(openId,tag) values
+        <foreach collection="labels" item="label" separator=",">
+            (#{openId},#{label})
+        </foreach>
+
     </insert>
 </mapper>

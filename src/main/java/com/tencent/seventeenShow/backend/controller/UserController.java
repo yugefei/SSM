@@ -232,11 +232,14 @@ public class UserController extends BaseController {
     @ResponseBody
     public Response modifyResume(@RequestHeader("token")String token, ChangeResumeVo vo) {
         String openId = userService.findOpenIdByToken(token);
-        String[] label = vo.getLabel().split(",");
+        String[] labels = vo.getLabel().split(",");
 
-        if(userService.modifyResume(openId,vo) && userService.deleteLabel(openId) && userService.insertLabel(openId,label))
+        if(userService.modifyResume(openId,vo) && userService.deleteLabel(openId) && userService.insertLabel(openId,labels))
         {
             return new Response();
+        }
+        if (userService.deleteLabel(openId))
+        {
 
         }
        return new Response(ResultCode.ERROR_DEFAULT_CODE,"修改个人资料失败");
