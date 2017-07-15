@@ -54,7 +54,7 @@
     </select>
 
     <select id="getResume" resultType="User" parameterType="String">
-        select mobile, username,loveBalance,diamondBalance,label,avatar,age
+        select mobile, username,loveBalance,diamondBalance,avatar,age
         from `user`
         where openId = #{openId}
     </select>
@@ -70,7 +70,7 @@
 
     <!--开始写接口咯-->
     <update id="clickDiamond">
-        UPDATE user SET diamondBalance = diamondBalance -1 where openId = #{openId}
+        UPDATE user SET diamondBalance = diamondBalance - 1 where openId = #{openId}
     </update>
 
     <update id="clickLove">
@@ -100,7 +100,7 @@
     </select>
 -->
     <select id="getFriendInfo" resultType="FriendInfo" parameterType="String">
-        select username,label,age,avatar,loveBalance
+        select username,age,avatar,loveBalance
         from `user`
         where openId = #{openId}
     </select>

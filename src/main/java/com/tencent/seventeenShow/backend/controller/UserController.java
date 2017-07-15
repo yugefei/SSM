@@ -38,6 +38,7 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
     public Response<LoginVo> firstLogin(LoginForm form){
+
         if(userService.findTokenByOpenId(form.getOpenId())!=null)
         {
             Token token = userService.findTokenByOpenId(form.getOpenId());
@@ -65,6 +66,7 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/refreshToken",method = RequestMethod.POST)
     @ResponseBody
     public Response<LoginVo> refreshToken(OAuthForm form) {
+
         long timeInterval = 24 * 60 * 60 * 1000;
         if (userService.findTokenByOpenId(form.getOpenId())!= null) {
             String tokenByFind = userService.findTokenByOpenId(form.getOpenId()).getToken();
@@ -119,7 +121,7 @@ public class UserController extends BaseController {
         User user = userService.getResume(userService.findOpenIdByToken(token));
         UserPeer peer =  PeerManager.g().getMatchResult(user);
         if(peer == null) return new Response<PeerResultVo>(ResultCode.ERROR_NOT_PEERED, "not peered");
-        else return new Response<>(new PeerResultVo(peer.getPeer(user.getOpenId()), peer.getRoomNumber()));
+        else return new Response<PeerResultVo>(new PeerResultVo(peer.getPeer(user.getOpenId()), peer.getRoomNumber()));
     }
 
     // 点击钻石+5s
@@ -131,9 +133,9 @@ public class UserController extends BaseController {
         {
             User user = userService.getResume(openId);
             int diamondBalance = user.getDiamondBalance();
-            Map<String, Integer> map = new HashMap<>();
+            Map<String, Integer> map = new HashMap<String,Integer>();
             map.put("diamonBalance",diamondBalance);
-            return new Response<>(map);
+            return new Response<Map<String,Integer>>(map);
         }
         return new Response<Map<String, Integer>>(ResultCode.ERROR_DEFAULT_CODE,"error");
 
@@ -255,7 +257,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public Response localMatch(@RequestHeader("token")String token) {
         String openId = userService.findOpenIdByToken(token);
-        if( userService.getResume(openId).getLocalMatch() == 1 )
+        if( userService.getResume(openId).getLocalMatch() == true )
             return  new Response<Integer>();
         return new Response<Integer>(ResultCode.ERROR_DEFAULT_CODE,"没有成功开启本地匹配");
 

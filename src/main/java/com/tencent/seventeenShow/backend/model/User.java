@@ -20,13 +20,13 @@ public class User {
     private int diamondBalance;
     private int loveBalance;
     private int dislikeLeft;
-    private int localMatch;//1表示开启本地匹配 ， 0 表示没有开启本地匹配
+    private boolean localMatch;//true 表示开启本地匹配 ， false 表示没有开启本地匹配
 
-    public int getLocalMatch() {
+    public boolean getLocalMatch() {
         return localMatch;
     }
 
-    public void setLocalMatch(int localMatch) {
+    public void setLocalMatch(boolean localMatch) {
         this.localMatch = localMatch;
     }
 
