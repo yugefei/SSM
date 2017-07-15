@@ -106,6 +106,9 @@
     </select>
 -->
 
+    <update id="decLove">
+        update user set loveBalance = loveBalance-1 where openId = #{openId}
+    </update>
 
     <update id="modifyGender">
         update user set gender = #{gender} where openId = #{openId}
