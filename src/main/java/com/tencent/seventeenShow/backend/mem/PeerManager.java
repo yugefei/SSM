@@ -38,10 +38,6 @@ public class PeerManager {
 
     public UserPeer getMatchResult(User user){
         if(userToPeer.contains(user)){
-            if(peeredUsers.containsKey(user)){
-                return peeredUsers.get(user).get();
-            }
-
             return null;
         }else{
             if(userToPeer.isEmpty()){
@@ -68,7 +64,10 @@ public class PeerManager {
     private Integer generateRoomId(){
         Random r = new Random(System.currentTimeMillis());
         for(;;){
-            Integer roomId = r.nextInt();
+            Integer roomId = r.nextInt(Integer.MAX_VALUE);
+            if(roomId < 0)
+                continue;
+
             if(!roomIds.contains(roomId)){
                 roomIds.add(roomId);
                 return roomId;
