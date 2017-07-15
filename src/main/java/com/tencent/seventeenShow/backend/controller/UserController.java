@@ -228,7 +228,7 @@ public class UserController extends BaseController {
 
 
         //修改个人资料
-    @RequestMapping(value = "/modifyresume",method = RequestMethod.GET)
+    @RequestMapping(value = "/modifyresume",method = RequestMethod.POST)
     @ResponseBody
     public Response modifyResume(@RequestHeader("token")String token, ChangeResumeVo vo) {
         String openId = userService.findOpenIdByToken(token);
@@ -243,7 +243,7 @@ public class UserController extends BaseController {
         }
         if (!userService.insertLabel(openId,labels)){
             return new Response(ResultCode.ERROR_DEFAULT_CODE,"修改个人资料失败");
-        }   
+        }
 
         return new Response();
     }
