@@ -24,7 +24,7 @@ public interface UserMapper {
     Token findTokenByOpenId(@Param("openId")String openId);
     String findOpenIdByToken(@Param("token")String token);
     User getResume(@Param("openId")String openId);
-    List<String> getLabel(@Param("token")String token);
+    List<String> getLabel(@Param("openId")String openId);
 
     int updateToken(@Param("openId")String openId, @Param("newToken")String newToken, @Param("expire")Date expire);
     int updateExpire(@Param("openId")String openId,@Param("expire")Date expire);

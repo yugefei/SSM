@@ -112,9 +112,7 @@ public class UserController extends BaseController {
         return new Response<List<String>>(ResultCode.ERROR_DEFAULT_CODE,"无用户标签信息");
     }
 
-
-    //开始写接口咯
-
+    // testok
     @RequestMapping(value = "/peerResult", method = RequestMethod.GET)
     @ResponseBody
     public Response<PeerResultVo> peerResult(@RequestHeader("token")String token){
@@ -125,7 +123,7 @@ public class UserController extends BaseController {
         else return new Response<PeerResultVo>(new PeerResultVo(peer.getPeer(user.getOpenId()), peer.getRoomNumber(), user.equals(peer.getA())));
     }
 
-    // 点击钻石+5s
+    // 点击钻石+5s testok
     @RequestMapping(value = "/clickdiamond",method = RequestMethod.GET)
     @ResponseBody
     public Response<Map<String,Integer>> clickDiamond(@RequestHeader("token")String token){
@@ -183,7 +181,7 @@ public class UserController extends BaseController {
         return new Response<Integer>(ResultCode.OK_CODE,"不是相互喜欢成功",0);
     }*/
 
-    //获取用户信息
+    //获取用户信息 testok
     @RequestMapping(value = "/getresume",method = RequestMethod.GET)
     @ResponseBody
     public Response<User> getResume(@RequestHeader("token")String token){
