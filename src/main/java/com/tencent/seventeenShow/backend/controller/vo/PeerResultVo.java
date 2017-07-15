@@ -33,4 +33,11 @@ public class PeerResultVo {
         this.roomId = roomId;
     }
 
+    public Boolean getRoomAdmin() {
+        return isRoomAdmin;
+    }
+
+    public void setRoomAdmin(Boolean roomAdmin) {
+        isRoomAdmin = roomAdmin;
+    }
 }
