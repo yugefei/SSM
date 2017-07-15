@@ -220,7 +220,7 @@ public class UserController extends BaseController {
         {
             String openId = userService.findOpenIdByToken(token);
             User user = userService.getResume(openId);
-            List<String> label = userService.getLabel(token);
+            List<String> label = userService.getLabel(openId);
             user.setLabel(label);
 
             return new Response<User>(user);
