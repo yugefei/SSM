@@ -263,17 +263,17 @@ public class UserController extends BaseController {
     @ResponseBody
     public Response modifyResume(@RequestHeader("token")String token, ChangeResumeVo vo) {
         String openId = userService.findOpenIdByToken(token);
-        String[] labels = vo.getLabel().split(",");
+      //  String[] labels = vo.getLabel().split(",");
 
         if(!userService.modifyResume(openId,vo))
         {
             return new Response(ResultCode.ERROR_DEFAULT_CODE,"修改个人资料失败");
         }
-
+/*
         if (!userService.insertLabel(openId,labels)){
             return new Response(ResultCode.ERROR_DEFAULT_CODE,"修改个人资料失败");
         }
-
+*/
         return new Response();
     }
 

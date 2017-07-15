@@ -9,15 +9,7 @@ public class ChangeResumeVo {
     private String username;
     private String gender;
     private  String birthday;
-    private String label;
 
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
 
     public String getBirthday() {
         return birthday;
