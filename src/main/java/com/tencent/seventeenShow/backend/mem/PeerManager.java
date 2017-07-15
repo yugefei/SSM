@@ -37,21 +37,25 @@ public class PeerManager {
     }
 
     public UserPeer getMatchResult(User user){
-        if(userToPeer.contains(user)){
+        if(peeredUsers.containsKey(user)) //已匹配, 返回couple
+            return peeredUsers.get(user).get();
+        
+        if(userToPeer.contains(user)){ //在匹配队列中, 返回null
             return null;
         }else{
-            if(userToPeer.isEmpty()){
+            if(userToPeer.isEmpty()){ //第一次匹配, 加入匹配队列
                 userToPeer.offer(user);
+                return null;
             }
             else{
-                User u = userToPeer.poll();
+                User u = userToPeer.poll(); //匹配队列中有用户, 返回第一个, 生成匹配对
                 UserPeer peer = new UserPeer(u, user,this.generateRoomId());
                 peeredUsers.put(u, new WeakReference<UserPeer>(peer));
                 peeredUsers.put(user,new WeakReference<UserPeer>(peer));
 
+
                 return peer;
             }
-            return null;
         }
     }
 
