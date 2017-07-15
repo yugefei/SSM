@@ -314,8 +314,14 @@ public class UserController extends BaseController {
     @ResponseBody
     public Response insertLabel(@RequestHeader("token")String token,Label tags) {
         String openId = userService.findOpenIdByToken(token);
+        if(!tags.getTags().contains(",")) {
+           String[] lab = new String[1];
+           lab[0] = tags.getTags();
+           userService.insertLabel(openId,lab);
+           return new Response();
+        }
         String[] labels = tags.getTags().split(",");
-        userService.insertLabel(openId,labels);
+        userService.insertLabel(openId, labels);
         return new Response();
     }
 }
