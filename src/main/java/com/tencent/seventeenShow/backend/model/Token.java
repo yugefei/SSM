@@ -7,8 +7,11 @@ import java.util.Date;
  */
 public class Token {
     private String token;
-    private long expire;
+    private Date expire;
     private String accessToken;
+
+
+
 
     public String getAccessToken() {
         return accessToken;
@@ -26,11 +29,11 @@ public class Token {
         this.token = token;
     }
 
-    public long getExpire() {
+    public Date getExpire() {
         return expire;
     }
 
-    public void setExpire(long expire) {
+    public void setExpire(Date expire) {
         this.expire = expire;
     }
 }

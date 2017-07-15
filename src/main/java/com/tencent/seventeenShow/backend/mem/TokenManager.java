@@ -59,7 +59,7 @@ public class TokenManager {
 
             String hashBase = userDto.hashCode() + "" + this.random.nextLong();
 
-            String tokenString = Utils.getHash(hashBase);
+            String tokenString = Utils.MD5(hashBase);
 
             token.setToken(tokenString);
             this.map.put(tokenString, token);

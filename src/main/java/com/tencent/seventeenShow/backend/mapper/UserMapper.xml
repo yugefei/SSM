@@ -96,11 +96,7 @@
         where lower(username) = lower(#(username));
     </select>
 
-    <select id="getResume" resultType="User" parameterType="int">
-        select id, avatar,mobile,nickname,gender,birthday,username
-        from `user`
-        where id = #{userId}
-    </select>
+
     <select id="getFriends" resultType="User" parameterType="int">
         select id, avatar,mobile,nickname,gender,birthday,username
         from `user`
@@ -119,6 +115,16 @@
         #{nu.mobile},#{nu.studentId},#{nu.name},#{nu.gender},#{pwd},now()
         )
     </insert>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -148,11 +154,64 @@
         UPDATE token_list SET expire = #{expire} where openId = #{openId}
     </update>
 
+    <select id="findOpenIdByToken" resultType="String" parameterType="String">
+        select openId
+        from `token_list`
+        where token = #{token}
+    </select>
+
+    <select id="getResume" resultType="User" parameterType="String">
+        select mobile, username,loveBalance,diamondBalance,label,avatar,age
+        from `user`
+        where openId = #{openId}
+    </select>
+
+
+    <select id="getLabel" resultType="Label" parameterType="String">
+        select label
+        from `user`
+        where openId = #{openId}
+    </select>
 
 
 
+    <!--开始写接口咯-->
+    <update id="clickDiamond">
+        UPDATE user SET diamondBalance = diamondBalance -1 where openId = #{openId}
+    </update>
+
+    <update id="clickLove">
+        UPDATE user SET loveBalance = loveBalance + 1 where openId = #{openId}
+    </update>
+
+    <update id="clickDislke">
+        UPDATE user SET dislikeLeft = dislikeLeft - 1 where openId = #{openId}
+    </update>
 
 
+<!--
+    <update id="changeMatch">
+        UPDATE match SET openid1 = 1 and result = openid1 + #{openId2} where openId1 = #{openId1} and openId2 = #{openId2}
+    </update>
 
 
+    <update id="changeNotMatch">
+        UPDATE match SET openid1 = 0 and result = openid1 + #{openId2} where openId1 = #{openId1} and openId2 = #{openId2}
+    </update>
+
+    <select id="isMatch" resultType="int" parameterType="String">
+        select result
+        from `match`
+        where openId1 = #{openId1} and openId2 = #{openId2}
+    </select>
+-->
+    <select id="getFriendInfo" resultType="FriendInfo" parameterType="String">
+        select username,label,age,avatar,loveBalance
+        from `user`
+        where openId = #{openId}
+    </select>
+
+    <update id="addDiamond">
+        UPDATE user SET diamondBalance = diamondBalance + 5 where openId = #{openId}
+    </update>
 </mapper>

@@ -5,6 +5,9 @@ import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.DateConverter;
 
 import java.security.MessageDigest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Edward on 2016/9/18.
@@ -37,17 +40,6 @@ public class Utils {
         s = new String(str); // 换后的结果转换为字符串
         return s;
     }
-    public static String getHash(String data) {
-        try{
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] b = md.digest(data.getBytes());
-            String tokenString = byteToHexString(b);
-            return tokenString;
-        }catch (Exception e){
-            return null;
-        }
-
-    }
     public static String MD5(String data) {
         try{
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -57,6 +49,6 @@ public class Utils {
         }catch (Exception e){
             return null;
         }
-
     }
+
 }

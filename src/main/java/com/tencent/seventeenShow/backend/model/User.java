@@ -2,6 +2,8 @@ package com.tencent.seventeenShow.backend.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import java.util.List;
+
 /**
  * Created by Edward on 2017/2/7 007.
  */
@@ -11,9 +13,56 @@ public class User {
     private String mobile;
     private String birthday;
     private String gender;
-    private String nickname;
+    private int age;
     private String avatar;
     private String username;
+    private List<String> label;
+    private String openId;
+
+    private String nickname;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
+    private int diamondBalance;
+    private int loveBalance;
+
+    public int getDiamondBalance() {
+        return diamondBalance;
+    }
+
+    public void setDiamondBalance(int diamondBalance) {
+        this.diamondBalance = diamondBalance;
+    }
+
+    public int getLoveBalance() {
+        return loveBalance;
+    }
+
+    public void setLoveBalance(int loveBalance) {
+        this.loveBalance = loveBalance;
+    }
+
+    public List<String> getLabel() {
+        return label;
+    }
+
+    public void setLabel(List<String> label) {
+        this.label = label;
+    }
 
     public String getUsername() {
         return username;
@@ -54,12 +103,12 @@ public class User {
         this.gender = gender;
     }
 
-    public String getNickname() {
-        return nickname;
+    public int getAge() {
+        return age;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public String getAvatar() {
@@ -68,5 +117,10 @@ public class User {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return ((User)obj).getOpenId().equals(this.getOpenId());
     }
 }

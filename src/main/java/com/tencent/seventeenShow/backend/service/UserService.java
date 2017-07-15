@@ -1,13 +1,17 @@
 package com.tencent.seventeenShow.backend.service;
 
-import com.tencent.seventeenShow.backend.model.Privilege;
-import com.tencent.seventeenShow.backend.model.User;
+import com.tencent.seventeenShow.backend.controller.BaseController;
+import com.tencent.seventeenShow.backend.controller.vo.ChangeResumeVo;
+import com.tencent.seventeenShow.backend.controller.vo.FriendsVo;
+import com.tencent.seventeenShow.backend.mem.Token;
+import com.tencent.seventeenShow.backend.model.*;
 import com.tencent.seventeenShow.backend.utils.exception.MobileOccupiedException;
 import com.tencent.seventeenShow.backend.utils.exception.StudentIdOccupiedException;
 import com.tencent.seventeenShow.backend.utils.exception.StudentNameException;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,17 +29,49 @@ public interface UserService {
     boolean clickDislike(Long userId);
     int buyFilter(Long userId);
     Privilege getPrivilegeByName(Long userId);
-    User getResume(Long userId);
+    ;
     ArrayList<User> getFriends(Long userId);
-    User startMatch(Long userId);
+  //  User startMatch(Long userId);
     boolean fillInResume(User user);
 
-    boolean firstLogin(String accessToken, String openId, String token, long expire);
+    boolean firstLogin(String accessToken, String openId, String token, Date expire);
 
     com.tencent.seventeenShow.backend.model.Token findTokenByOpenId(String openId);
 
-    boolean updateToken(String openId,String newToken, long expire);
-    boolean updateExpire(String openId,long expire);
+
+
+    Label getLabel(String token);
+    //开始写接口咯
+
+    boolean clickDiamond(String openId);
+    boolean clickLove(String openId);
+
+   // boolean changeMatch(String openId1,String openId2);
+   // boolean changeNotMatch(String openId1,String openId2);
+    boolean clickDislike(String openId);
+  //  boolean isMatch(String openId1,String openId2);
+
+    FriendInfo getFriendInfo(String openId);
+
+    boolean addDiamond(String openId);
+    boolean modifyResume(String openId, ChangeResumeVo changeResumeVo);
+
+    String findOpenIdByToken(String token);
+    User getResume(String openId);
+    boolean updateToken(String openId,String newToken, Date expire);
+    boolean updateExpire(String openId,Date expire);
+
+
+
+//commentResult
+
+
+
+
+
+
+
+
 
     boolean userNameTaken(String userName);
 
