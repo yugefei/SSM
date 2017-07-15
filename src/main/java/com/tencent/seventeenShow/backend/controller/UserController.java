@@ -5,6 +5,8 @@ import com.tencent.seventeenShow.backend.controller.form.LoginForm;
 import com.tencent.seventeenShow.backend.controller.vo.ChangeResumeVo;
 import com.tencent.seventeenShow.backend.controller.form.GenderForm;
 import com.tencent.seventeenShow.backend.controller.vo.LoginVo;
+import com.tencent.seventeenShow.backend.controller.vo.PeerResultVo;
+import com.tencent.seventeenShow.backend.mem.PeerManager;
 import com.tencent.seventeenShow.backend.model.*;
 import com.tencent.seventeenShow.backend.service.UserService;
 import com.tencent.seventeenShow.backend.utils.Utils;
@@ -60,7 +62,7 @@ public class UserController extends BaseController {
     public Response<String> refreshToken(@RequestBody OAuthForm form) {
         long timeInterval = 24 * 60 * 60 * 1000;
         if (userService.findTokenByOpenId(form.getOpenId())!= null) {
-            String tokenByFind = userService.findTokenByOpenId(form.getOpenId()).getToken();
+//            String tokenByFind = userService.findTokenByOpenId(form.getOpenId()).getToken();
 
             //重放攻击
             if (Math.abs(System.currentTimeMillis() - form.getTimestamp()) > 60)
@@ -108,6 +110,14 @@ public class UserController extends BaseController {
 
     //开始写接口咯
 
+    @RequestMapping(value = "/peerResult", method = RequestMethod.GET)
+    @ResponseBody
+    public Response<PeerResultVo> peerResult(@RequestHeader("token")String token){
+        User user = userService.getResume(userService.findOpenIdByToken(token));
+        UserPeer peer =  PeerManager.g().getMatchResult(user);
+        if(peer == null) return new Response<PeerResultVo>(ResultCode.ERROR_NOT_PEERED, "not peered");
+        else return new Response<>(new PeerResultVo(peer.getPeer(user.getOpenId()), peer.getRoomNumber()));
+    }
 
     // 点击钻石+5s
     @RequestMapping(value = "/clickdiamond",method = RequestMethod.GET)
@@ -118,9 +128,9 @@ public class UserController extends BaseController {
         {
             User user = userService.getResume(openId);
             int diamondBalance = user.getDiamondBalance();
-            Map<String, Integer> map = new HashMap<String, Integer>();
+            Map<String, Integer> map = new HashMap<>();
             map.put("diamonBalance",diamondBalance);
-            return new Response(map);
+            return new Response<>(map);
         }
         return new Response<Map<String, Integer>>(ResultCode.ERROR_DEFAULT_CODE,"error");
 
