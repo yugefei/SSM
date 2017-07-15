@@ -238,9 +238,7 @@ public class UserController extends BaseController {
         {
             return new Response(ResultCode.ERROR_DEFAULT_CODE,"修改个人资料失败");
         }
-        if (!userService.deleteLabel(openId)){
-            return new Response(ResultCode.ERROR_DEFAULT_CODE,"修改个人资料失败");
-        }
+
         if (!userService.insertLabel(openId,labels)){
             return new Response(ResultCode.ERROR_DEFAULT_CODE,"修改个人资料失败");
         }

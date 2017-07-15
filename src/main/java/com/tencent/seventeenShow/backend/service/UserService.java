@@ -63,7 +63,6 @@ public interface UserService {
 
     boolean localMatch(String openId);
 
-    boolean deleteLabel(String openId);
     boolean insertLabel(String openId,String[] tag);
 
 }
