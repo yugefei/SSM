@@ -111,10 +111,10 @@
         where openId = #{openId}
     </select>
 
-    <update id="modifyGender">\
+    <update id="modifyGender">
         update user set gender = #{gender} where openId = #{openId}
     </update>
-s
+
     <update id="addDiamond">
         UPDATE user SET diamondBalance = diamondBalance + #{count} where openId = #{openId}
     </update>
