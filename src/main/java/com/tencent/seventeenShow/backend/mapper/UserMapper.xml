@@ -68,7 +68,7 @@
 
     <select id="resumeExists">
         select count(1)
-        form user
+        from user
         where openId = #{openId}
     </select>
 
