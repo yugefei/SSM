@@ -2,9 +2,12 @@ package com.tencent.seventeenShow.backend.dao;
 import com.tencent.seventeenShow.backend.model.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.security.access.method.P;
-
 import java.util.ArrayList;
 import java.util.Date;
+import com.tencent.seventeenShow.backend.model.User;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 
 
 /**

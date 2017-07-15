@@ -9,6 +9,7 @@ public class Token {
     private String token;
     private Date expire;
     private String accessToken;
+    private String sig;
 
 
 
@@ -35,5 +36,13 @@ public class Token {
 
     public void setExpire(Date expire) {
         this.expire = expire;
+    }
+
+    public String getSig() {
+        return sig;
+    }
+
+    public void setSig(String sig) {
+        this.sig = sig;
     }
 }

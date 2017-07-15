@@ -58,6 +58,10 @@ public class Response <T> {
     public Response(T data){
         this.setData(data);
     }
+
+
+
+
     public Response(Long code,String message, T data)
     {
         this.code = code;

@@ -4,6 +4,9 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.DateConverter;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,6 +16,22 @@ import java.util.Date;
  * Created by Edward on 2016/9/18.
  */
 public class Utils {
+    public static String getSig(String openId) throws IOException{
+        return Utils.exeCmd("/root/signature /root/private_key 1400035413 " + openId);
+    }
+    private static String exeCmd(String commandStr) throws IOException {
+        BufferedReader br = null;
+        Process p = Runtime.getRuntime().exec(commandStr);
+        br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String line = null;
+        StringBuilder sb = new StringBuilder();
+        while ((line = br.readLine()) != null) {
+            sb.append(line);
+        }
+        return sb.toString();
+
+    }
+
     public static void copyProperties(Object result,Object object){
         try{
             ConvertUtils.register(new DateConverter(null), java.util.Date.class);
@@ -40,6 +59,18 @@ public class Utils {
         s = new String(str); // 换后的结果转换为字符串
         return s;
     }
+    public static String getHash(String data) {
+        try{
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] b = md.digest(data.getBytes());
+            String tokenString = byteToHexString(b);
+            return tokenString;
+        }catch (Exception e){
+            return null;
+        }
+
+    }
+
     public static String MD5(String data) {
         try{
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -49,6 +80,7 @@ public class Utils {
         }catch (Exception e){
             return null;
         }
+
     }
 
 }

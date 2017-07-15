@@ -13,26 +13,20 @@ import org.apache.ibatis.annotations.Param;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import com.tencent.seventeenShow.backend.model.User;
+import com.tencent.seventeenShow.backend.utils.exception.MobileOccupiedException;
+import com.tencent.seventeenShow.backend.utils.exception.StudentIdOccupiedException;
+import com.tencent.seventeenShow.backend.utils.exception.StudentNameException;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by Edward on 2017/2/7 007.
  */
 
 public interface UserService {
-    User login(String username, String pwd);
 
-    boolean register(User user,String pwd)  throws StudentIdOccupiedException,MobileOccupiedException,StudentNameException;
 
-    List<Integer> getBalances(String username);
-    int extendTime(Long userId);
-    boolean clickLike(Long userId);
-    boolean clickDislike(Long userId);
-    int buyFilter(Long userId);
-    Privilege getPrivilegeByName(Long userId);
-    ;
-    ArrayList<User> getFriends(Long userId);
-  //  User startMatch(Long userId);
-    boolean fillInResume(User user);
+
 
     boolean firstLogin(String accessToken, String openId, String token, Date expire);
 
@@ -64,11 +58,6 @@ public interface UserService {
 
 
 //commentResult
-
-
-
-
-
 
 
 

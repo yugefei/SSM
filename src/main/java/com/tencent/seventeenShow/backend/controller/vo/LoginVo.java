@@ -7,12 +7,7 @@ import com.tencent.seventeenShow.backend.model.User;
  */
 public class LoginVo {
     private String token;
-    private Boolean signed;
-
-    public LoginVo(String token, Boolean signed){
-        this.token = token;
-        this.signed = signed;
-    }
+    private boolean singed;
 
     public String getToken() {
         return token;
@@ -22,11 +17,16 @@ public class LoginVo {
         this.token = token;
     }
 
-    public Boolean getSigned() {
-        return signed;
+    public boolean isSinged() {
+        return singed;
     }
 
-    public void setSigned(Boolean signed) {
-        this.signed = signed;
+    public void setSinged(boolean singed) {
+        this.singed = singed;
+    }
+
+    public LoginVo(String token, boolean singed) {
+        this.token = token;
+        this.singed = singed;
     }
 }
