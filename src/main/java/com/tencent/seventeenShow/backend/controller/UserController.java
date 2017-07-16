@@ -278,8 +278,11 @@ public class UserController extends BaseController {
         if(form.getOpenId() != null){
             // 从 user 表获取用户基本信息
             User user = userService.getResume(form.getOpenId());
+            logger.info(user);
             // 从 label 表获取用户标签
             List<String> label = userService.getLabel(form.getOpenId());
+            logger.info(label);
+
             // 设置 user 对象的标签属性
             user.setLabel(label);
             return new Response<User>(user);
