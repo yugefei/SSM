@@ -1,6 +1,7 @@
 package com.tencent.seventeenShow.backend.model;
 
 import com.tencent.seventeenShow.backend.dao.UserMapper;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * All Rights Reserved
  */
 public class UserPeer {
+    Logger logger = Logger.getLogger(UserPeer.class);
+
     @Autowired
     private UserMapper userMapper;
 
@@ -66,18 +69,19 @@ public class UserPeer {
     }
 
     public void clickLike(String openId){
-
+        logger.error(openId);
 //        if(openId == null)
 //            throw new NullPointerException("openId should not be null");
 
         if(openId.equals(a.getOpenId())){
             if(aClickResult != kUSER_CLICK_LIKE)
-                userMapper.decLove(a.getOpenId());
+
+                userMapper.decLove(openId);
 
             aClickResult = kUSER_CLICK_LIKE;
         }else if (openId.equals(b.getOpenId())){
             if(bClickResult != kUSER_CLICK_LIKE)
-                userMapper.decLove(b.getOpenId());
+                userMapper.decLove(openId);
 
             bClickResult = kUSER_CLICK_LIKE;
         }else{
