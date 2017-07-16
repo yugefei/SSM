@@ -276,15 +276,10 @@ public class UserController extends BaseController {
     @ResponseBody
     public Response<User> getOtherResume(OpenIdForm form){
         if(form.getOpenId() != null){
-            logger.info(form.getOpenId());
-
             // 从 user 表获取用户基本信息
-            User user = userService.getResume(form.getOpenId().toUpperCase());
-            logger.info(user);
+            User user = userService.getResume(form.getOpenId());
             // 从 label 表获取用户标签
-            List<String> label = userService.getLabel(form.getOpenId().toUpperCase());
-            logger.info(label);
-
+            List<String> label = userService.getLabel(form.getOpenId());
             // 设置 user 对象的标签属性
             user.setLabel(label);
             return new Response<User>(user);
