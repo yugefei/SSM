@@ -10,11 +10,19 @@ public class PeerResultVo {
     private User user;
     private Integer roomId;
     private Boolean isRoomAdmin;
+    private Integer totalSeconds;
 
     public PeerResultVo(User user, Integer roomId, Boolean isRoomAdmin) {
         this.user = user;
         this.roomId = roomId;
         this.isRoomAdmin = isRoomAdmin;
+    }
+
+    public PeerResultVo(User user, Integer roomId, Boolean isRoomAdmin, Integer totalSeconds) {
+        this.user = user;
+        this.roomId = roomId;
+        this.isRoomAdmin = isRoomAdmin;
+        this.totalSeconds = totalSeconds;
     }
 
     public User getUser() {
@@ -39,5 +47,13 @@ public class PeerResultVo {
 
     public void setRoomAdmin(Boolean roomAdmin) {
         isRoomAdmin = roomAdmin;
+    }
+
+    public Integer getTotalSeconds() {
+        return totalSeconds;
+    }
+
+    public void setTotalSeconds(Integer totalSeconds) {
+        this.totalSeconds = totalSeconds;
     }
 }

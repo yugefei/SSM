@@ -164,12 +164,26 @@ public class UserController extends BaseController {
         // 消费钻石的操作
         if(userService.clickDiamond(openId)){
             User user = userService.getResume(openId);
+
+            PeerManager.g().add5s(user);
+
             Long diamondBalance = user.getDiamondBalance();
             Map<String, Long> map = new HashMap<String,Long>();
             map.put("diamonBalance",diamondBalance);
             return new Response<Map<String,Long>>(map);
         }
         return new Response<Map<String, Long>>(ResultCode.ERROR_DEFAULT_CODE,"error");
+    }
+
+    /**
+     * 当前会话状态
+     */
+    @RequestMapping(value = "/peerStatus", method = RequestMethod.GET)
+    @ResponseBody
+    public Response<PeerResultVo> peerStatus(@RequestHeader("token")String token){
+        User user = userService.getResume(userService.findOpenIdByToken(token));
+        UserPeer peer = PeerManager.g().getPeerResult(user);
+        return new Response<PeerResultVo>(new PeerResultVo(peer.getPeer(user.getOpenId()), peer.getRoomNumber(), user.equals(peer.getA()), peer.getTotalSeconds()));
     }
 
     /** 

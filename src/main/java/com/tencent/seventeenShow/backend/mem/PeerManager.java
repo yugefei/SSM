@@ -61,6 +61,14 @@ public class PeerManager {
         }
     }
 
+    public void add5s(User user){
+        UserPeer peer = peeredUsers.get(user).get();
+        if(peer != null)
+            return;
+
+        peer.setTotalSeconds(peer.getTotalSeconds() + 5);
+    }
+
     public void removePeer(User user){
         userToPeer.remove(user);
 //        peers.remove(peeredUsers.get(user).get());

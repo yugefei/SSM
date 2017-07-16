@@ -31,6 +31,8 @@ public class UserPeer {
 
     private Integer roomNumber;
 
+    private Integer totalSeconds = 17; //默认17s
+
     public UserPeer(User a, User b, Integer roomNumber) {
         this.a = a;
         this.b = b;
@@ -126,4 +128,11 @@ public class UserPeer {
         return aResultPublished && bResultPublished;
     }
 
+    public Integer getTotalSeconds() {
+        return totalSeconds;
+    }
+
+    public void setTotalSeconds(Integer totalSeconds) {
+        this.totalSeconds = totalSeconds;
+    }
 }
