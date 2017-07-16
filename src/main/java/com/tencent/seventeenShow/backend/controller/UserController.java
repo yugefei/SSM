@@ -172,6 +172,7 @@ public class UserController extends BaseController {
             map.put("diamondBalance",diamondBalance);
             return new Response<Map<String,Long>>(map);
         }
+        logger.info("====\n\ndiamond error");
         return new Response<Map<String, Long>>(ResultCode.ERROR_DEFAULT_CODE,"error");
     }
 
