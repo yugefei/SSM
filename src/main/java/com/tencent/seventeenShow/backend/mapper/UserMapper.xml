@@ -59,6 +59,13 @@
         where u.openId = #{openId}
     </select>
 
+    <select id="getOtherResume" resultType="User" parameterType="String">
+        select username,avatar,age,u.openId openId,gender,birthday, dislikeLeft
+        from `user` u left join token_list t on u.openId = t.openId
+        where u.openId = #{openId}
+    </select>
+
+
 
     <select id="getLabel" resultType="String" parameterType="String">
         select tag

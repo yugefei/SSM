@@ -220,6 +220,17 @@ public class UserController extends BaseController {
         return new Response();
     }
 
+    /**
+     * 双方最终的匹配结果
+     */
+    @RequestMapping(value = "/leaveMatch",method = RequestMethod.GET)
+    @ResponseBody
+    public Response leaveMatch(@RequestHeader("token")String token){
+        User user = userService.getResume(userService.findOpenIdByToken(token));
+        PeerManager.g().removePeer(user);
+        return new Response();
+    }
+
     /** 
      * 双方最终的匹配结果
      */
@@ -251,6 +262,24 @@ public class UserController extends BaseController {
             User user = userService.getResume(openId);
             // 从 label 表获取用户标签
             List<String> label = userService.getLabel(openId);
+            // 设置 user 对象的标签属性
+            user.setLabel(label);
+            return new Response<User>(user);
+        }
+        return new Response<User>(ResultCode.ERROR_DEFAULT_CODE,"无用户信息");
+    }
+
+    /**
+     * 获取其他用户信息
+     */
+    @RequestMapping(value = "/getResume",method = RequestMethod.POST)
+    @ResponseBody
+    public Response<User> getOtherResume(OAuthForm form){
+        if(form.getOpenId() != null){
+            // 从 user 表获取用户基本信息
+            User user = userService.getResume(form.getOpenId());
+            // 从 label 表获取用户标签
+            List<String> label = userService.getLabel(form.getOpenId());
             // 设置 user 对象的标签属性
             user.setLabel(label);
             return new Response<User>(user);

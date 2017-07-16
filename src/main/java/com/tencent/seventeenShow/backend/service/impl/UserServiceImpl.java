@@ -56,6 +56,11 @@ public class UserServiceImpl  implements UserService{
     }
 
     @Override
+    public User getOtherResume(String openId) {
+        return userMapper.getOtherResume(openId);
+    }
+
+    @Override
     public User getResume(String openId) {
         return userMapper.getResume(openId);
     }

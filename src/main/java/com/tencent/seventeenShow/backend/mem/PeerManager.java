@@ -68,9 +68,6 @@ public class PeerManager {
             return;
 
         peer.setTotalSeconds(peer.getTotalSeconds() + 5);
-
-        logger.info("total Sec: " + peer.getTotalSeconds());
-
     }
 
     public void removePeer(User user){

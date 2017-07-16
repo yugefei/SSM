@@ -43,6 +43,8 @@ public interface UserService {
 
     User getResume(String openId);
 
+    User getOtherResume(String openId);
+
     boolean updateToken(String openId,String newToken, Date expire);
 
     boolean updateExpire(String openId,Date expire);
