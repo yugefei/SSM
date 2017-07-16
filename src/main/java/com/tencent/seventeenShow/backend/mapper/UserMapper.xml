@@ -54,9 +54,9 @@
     </select>
 
     <select id="getResume" resultType="User" parameterType="String">
-        select mobile,username,loveBalance,diamondBalance,avatar,age,openId,gender,birthday
-        from `user`
-        where openId = #{openId}
+        select mobile,username,loveBalance,diamondBalance,avatar,age,openId,gender,birthday, sig
+        from `user` u left join token_list t on u.openId = t.openId
+        where u.openId = #{openId}
     </select>
 
 
