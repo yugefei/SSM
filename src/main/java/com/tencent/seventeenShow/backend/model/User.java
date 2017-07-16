@@ -20,10 +20,10 @@ public class User implements Comparable{
     private Long diamondBalance;
     private Long loveBalance;
     private Long dislikeLeft;
-    private boolean localMatch;//true 表示开启本地匹配 ， false 表示没有开启本地匹配
+    private Boolean localMatch;//true 表示开启本地匹配 ， false 表示没有开启本地匹配
     private String sig;
 
-    public boolean getLocalMatch() {
+    public Boolean getLocalMatch() {
         return localMatch;
     }
 
