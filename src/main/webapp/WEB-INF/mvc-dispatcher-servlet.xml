@@ -70,7 +70,7 @@
 
     <aop:aspectj-autoproxy />
     <!--包搜索路径-->
-    <context:component-scan base-package="com.tencent.seventeenShow.backend.mapper,com.tencent.seventeenShow.backend.controller,com.tencent.seventeenShow.backend.service.impl"/>
+    <context:component-scan base-package="com.tencent.seventeenShow.backend.mapper,com.tencent.seventeenShow.backend.controller,com.tencent.seventeenShow.backend.service.impl,com.tencent.seventeenShow.backend.model"/>
     <aop:config proxy-target-class="true"/>
 
     <!--自动请求数据解析/路由配置-->
