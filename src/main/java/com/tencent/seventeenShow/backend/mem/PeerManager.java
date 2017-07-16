@@ -62,6 +62,21 @@ public class PeerManager {
         }
     }
 
+    public void setCanDelete(User user){
+        if(peeredUsers.containsKey(user)){
+            //已匹配, 返回couple
+            peeredUsers.get(user).get().setCanDelete(user.getOpenId());
+            if(peeredUsers.get(user).get().isCanDelete()){
+                UserPeer peer = peeredUsers.get(user).get();
+                User a = peer.getA();
+                User b = peer.getB();
+
+                this.removePeer(a);
+                this.removePeer(b);
+            }
+        }
+    }
+
     public void add5s(User user){
         UserPeer peer = peeredUsers.get(user).get();
         if(peer == null)
@@ -95,8 +110,7 @@ public class PeerManager {
 
         UserPeer peer = peeredUsers.get(user).get();
         if(peer.matchResult(user.getOpenId()) != kRESULT_UNKNOWN){
-            if(peer.isCanDelete())
-                this.removePeer(user);
+
 
             return peer.matchResult(user.getOpenId());
         }else{

@@ -107,20 +107,19 @@ public class UserPeer {
 
     public int matchResult(String openId){
         if(aClickResult == kUSER_CLICK_LIKE && bClickResult ==kUSER_CLICK_LIKE){
-            this.setResultPublished(openId);
             return kMATCHED;
         }
 
 
         if(aClickResult != kUSER_UNCLICK && bClickResult != kUSER_UNCLICK){
-            this.setResultPublished(openId);
             return kUNMATCHED;
         }
 
         return kRESULT_UNKNOWN;
     }
 
-    private void setResultPublished(String openId){
+
+    public void setCanDelete(String openId){
         if(openId == null)
             throw new NullPointerException("openId should not be null");
 

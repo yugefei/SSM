@@ -210,6 +210,17 @@ public class UserController extends BaseController {
         return new Response<LoveBalanceVo>(new LoveBalanceVo(userService.getLoveNum(user.getOpenId())));
     }
 
+    /**
+     * 确认可删
+     */
+    @RequestMapping(value = "/removePeer",method = RequestMethod.GET)
+    @ResponseBody
+    public Response removePeer(@RequestHeader("token")String token){
+        User user = userService.getResume(userService.findOpenIdByToken(token));
+        PeerManager.g().setCanDelete(user);
+        return new Response();
+    }
+
     /** 
      * 点击 X (不喜欢)
      */
