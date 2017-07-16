@@ -274,7 +274,7 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "/getResume",method = RequestMethod.POST)
     @ResponseBody
-    public Response<User> getOtherResume(OAuthForm form){
+    public Response<User> getOtherResume(OpenIdForm form){
         if(form.getOpenId() != null){
             // 从 user 表获取用户基本信息
             User user = userService.getResume(form.getOpenId());
