@@ -71,6 +71,7 @@ public class PeerManager {
     }
 
     public void removePeer(User user){
+        logger.info("======================\nremoved");
         userToPeer.remove(user);
 //        peers.remove(peeredUsers.get(user).get());
         peeredUsers.remove(user);
