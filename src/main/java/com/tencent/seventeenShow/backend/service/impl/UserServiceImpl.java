@@ -168,5 +168,10 @@ public class UserServiceImpl  implements UserService{
 
 
     }
+
+    @Override
+    public boolean decLove(String openId) {
+        return userMapper.decLove(openId) >= 1;
+    }
 }
 

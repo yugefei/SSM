@@ -65,4 +65,7 @@ public interface UserService {
 
     boolean regToHx(String openId);
 
+    boolean decLove(String openId);
+
+
 }

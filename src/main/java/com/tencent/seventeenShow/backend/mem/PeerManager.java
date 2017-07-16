@@ -77,9 +77,11 @@ public class PeerManager {
         peeredUsers.remove(user);
     }
 
-    public void clickLike(User user){
+    public boolean clickLike(User user){
         if(peeredUsers.containsKey(user))
-            peeredUsers.get(user).get().clickLike(user.getOpenId());
+            return peeredUsers.get(user).get().clickLike(user.getOpenId());
+
+        return false;
     }
 
     public void clickDislike(User user){

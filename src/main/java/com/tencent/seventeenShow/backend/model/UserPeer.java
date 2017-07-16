@@ -68,25 +68,28 @@ public class UserPeer {
         return b;
     }
 
-    public void clickLike(String openId){
-        logger.error(openId);
-//        if(openId == null)
-//            throw new NullPointerException("openId should not be null");
+    public boolean clickLike(String openId){
+
+        boolean result = false;
+                if(openId == null)
+            throw new NullPointerException("openId should not be null");
 
         if(openId.equals(a.getOpenId())){
-            if(aClickResult != kUSER_CLICK_LIKE)
-
-                userMapper.decLove(openId);
+            if(aClickResult != kUSER_CLICK_LIKE){
+                result = true;
+            }
 
             aClickResult = kUSER_CLICK_LIKE;
         }else if (openId.equals(b.getOpenId())){
-            if(bClickResult != kUSER_CLICK_LIKE)
-                userMapper.decLove(openId);
-
+            if(bClickResult != kUSER_CLICK_LIKE){
+                result = true;
+            }
             bClickResult = kUSER_CLICK_LIKE;
         }else{
-//            throw new NullPointerException("the user is not in peer");
+            throw new NullPointerException("the user is not in peer");
         }
+
+        return result;
     }
 
     public void clickDislike(String openId){

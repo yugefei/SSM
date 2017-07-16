@@ -204,7 +204,9 @@ public class UserController extends BaseController {
     public Response<LoveBalanceVo> clickLove(@RequestHeader("token")String token){
         User user = userService.getResume(userService.findOpenIdByToken(token));
         // 给匹配对象比心
-        PeerManager.g().clickLike(user);
+        if(PeerManager.g().clickLike(user)){
+            userService.decLove(user.getOpenId());
+        }
         return new Response<LoveBalanceVo>(new LoveBalanceVo(userService.getLoveNum(user.getOpenId())));
     }
 
