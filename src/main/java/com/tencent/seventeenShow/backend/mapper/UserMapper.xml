@@ -72,7 +72,6 @@
         where openId = #{openId}
     </select>
 
-    <!--开始写接口咯-->
     <update id="clickDiamond">
         UPDATE user SET diamondBalance = diamondBalance - 1 where openId = #{openId}
     </update>
@@ -86,8 +85,8 @@
     </update>
 
     <insert id="insertResume">
-        insert into user(openId,username,gender,birthday,diamondBalance,loveBalance,dislikeLeft,localMatch)
-        values(#{openId},#{vo.username},"男",#{vo.birthday},0,5,0,false)
+        insert into user(openId,username,avatar,gender,birthday,diamondBalance,loveBalance,dislikeLeft,localMatch)
+        values(#{openId},#{vo.username},"FhGRGtdBWf1rdOwvIFImc-r0P-HK","男",#{vo.birthday},0,5,0,false)
     </insert>
 <!--
     <update id="changeMatch">
