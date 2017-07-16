@@ -25,39 +25,29 @@ import org.springframework.stereotype.Service;
 
 public interface UserService {
 
-
-
-
     boolean firstLogin(String accessToken, String openId, String token, Date expire, String sig);
 
     com.tencent.seventeenShow.backend.model.Token findTokenByOpenId(String openId);
 
-
-
     List<String> getLabel(String token);
-    //开始写接口咯
-
+    
     boolean clickDiamond(String openId);
+
     boolean clickLove(String openId);
 
-   // boolean changeMatch(String openId1,String openId2);
-   // boolean changeNotMatch(String openId1,String openId2);
     boolean clickDislike(String openId);
-  //  boolean isMatch(String openId1,String openId2);
-
-
 
     boolean addDiamond(String openId,int count);
 
-
     String findOpenIdByToken(String token);
+
     User getResume(String openId);
+
     boolean updateToken(String openId,String newToken, Date expire);
+
     boolean updateExpire(String openId,Date expire);
 
     boolean modifyResume(String openId, ChangeResumeVo changeResumeVo);
-//commentResult
-
 
     boolean modifyGender(String openId, String gender);
 
@@ -68,6 +58,7 @@ public interface UserService {
     List<User> getFriends(String openId);
 
     User getFriendInfo(String openId);
+    
     Long getLoveNum(String openId);
 
     boolean regToHx(String openId);

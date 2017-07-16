@@ -74,10 +74,6 @@ public class UserServiceImpl  implements UserService{
         return false;
     }
 
-
-
-
-//开始写接口咯
     @Override
     public boolean clickDiamond(String openId) {
         if(userMapper.clickDiamond(openId)>=1)
@@ -91,35 +87,12 @@ public class UserServiceImpl  implements UserService{
             return true;
         return false;
     }
-/*
-    @Override
-    public boolean changeMatch(String openId1, String openId2) {
-        if(userMapper.changeMatch(openId1,openId2)>=1)
-            return true;
-        return false;
-    }
 
     @Override
-    public boolean changeNotMatch(String openId1, String openId2) {
-        if(userMapper.changeNotMatch(openId1,openId2)>=1)
-            return true;
-        return false;
-    }
-*/
-    @Override
     public boolean clickDislike(String openId) {
-        if(userMapper.clickDislike(openId)>=1)
-            return true;
-        return false;
+        return userMapper.clickDislike(openId) >= 1;
     }
-/*
-    @Override
-    public boolean isMatch(String openId1, String openId2) {
-        if(userMapper.isMatch(openId1,openId2)==2)
-            return true;
-        return false;
-    }
-*/
+
 
 
     @Override

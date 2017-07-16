@@ -16,7 +16,7 @@ import java.util.Date;
 @Controller("uploadController")
 @RequestMapping("/upload")
 public class UploadController extends BaseController{
-
+	// 上传头像到七牛
     @ResponseBody
     @RequestMapping(value = "/token",method = RequestMethod.GET)
     public Response<UploadTokenVo> getUploadToken(){
