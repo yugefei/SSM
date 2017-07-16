@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.transform.Result;
 import java.io.IOException;
 import java.util.*;
 
@@ -60,6 +61,9 @@ public class UserController extends BaseController {
             sig = Utils.getSig(form.getOpenId());
         }catch(IOException e){
             return new Response<LoginVo>(ResultCode.ERROR_OPERATION_FAILED,"failed to get Sig");
+        }
+        if(!userService.regToHx(form.getOpenId())){
+            return new Response<LoginVo>(ResultCode.ERROR_OPERATION_FAILED,"failed to reg to huaxin cloud");
         }
         userService.firstLogin(form.getAccessToken(), form.getOpenId(), token, new Date(expire), sig);
         return new Response<LoginVo>(new LoginVo(token, false,sig));

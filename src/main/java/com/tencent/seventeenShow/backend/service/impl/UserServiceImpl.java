@@ -1,14 +1,21 @@
 package com.tencent.seventeenShow.backend.service.impl;
 
+import com.tencent.seventeenShow.backend.conf.GlobalEnv;
 import com.tencent.seventeenShow.backend.controller.vo.ChangeResumeVo;
 import com.tencent.seventeenShow.backend.dao.UserMapper;
 import com.tencent.seventeenShow.backend.model.*;
 import com.tencent.seventeenShow.backend.service.UserService;
+import com.tencent.seventeenShow.backend.utils.Utils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -21,7 +28,8 @@ public class UserServiceImpl  implements UserService{
     @Autowired
     private UserMapper userMapper;
 
-
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public boolean firstLogin(String accessToken, String openId, String token, Date expire, String sig) {
@@ -164,9 +172,23 @@ public class UserServiceImpl  implements UserService{
         return userMapper.getLoveNum(openId);
     }
 
+    @Override
+    public boolean regToHx(String openId) {
+        Map<String, String> obj = new HashMap<String, String>();
+        obj.put("username", openId);
+        obj.put("password", Utils.MD5(openId));
+        for(int i = 0; i < 5; ++i){
+            try{
+                logger.info(String.format("Try %d: OpenId %s",i,openId));
+                restTemplate.postForObject(GlobalEnv.hxRoot + "/user",obj,Object.class);
+                return true;
+            }catch (RestClientException e){
+            }
+        }
 
+        return false;
+
+
+    }
 }
-
-
-
 

@@ -70,5 +70,6 @@ public interface UserService {
     User getFriendInfo(String openId);
     Long getLoveNum(String openId);
 
+    boolean regToHx(String openId);
 
 }
