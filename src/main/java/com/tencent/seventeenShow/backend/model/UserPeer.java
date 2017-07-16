@@ -31,12 +31,13 @@ public class UserPeer {
 
     private Integer roomNumber;
 
-    private Integer totalSeconds = 17; //默认17s
+    private Integer totalSeconds; //默认17s
 
     public UserPeer(User a, User b, Integer roomNumber) {
         this.a = a;
         this.b = b;
         this.roomNumber = roomNumber;
+        totalSeconds = 17;
     }
 
     public Integer getRoomNumber() {
@@ -103,10 +104,10 @@ public class UserPeer {
         }
 
 
-//        if(aClickResult != kUSER_UNCLICK && bClickResult != kUSER_UNCLICK){
-//            this.setResultPublished(openId);
-//            return kUNMATCHED;
-//        }
+        if(aClickResult != kUSER_UNCLICK && bClickResult != kUSER_UNCLICK){
+            this.setResultPublished(openId);
+            return kUNMATCHED;
+        }
 
         return kRESULT_UNKNOWN;
     }
@@ -129,7 +130,7 @@ public class UserPeer {
     }
 
     public Integer getTotalSeconds() {
-        return totalSeconds;
+        return this.totalSeconds;
     }
 
     public void setTotalSeconds(Integer totalSeconds) {

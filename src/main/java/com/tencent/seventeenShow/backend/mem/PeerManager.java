@@ -2,6 +2,7 @@ package com.tencent.seventeenShow.backend.mem;
 
 import com.tencent.seventeenShow.backend.model.User;
 import com.tencent.seventeenShow.backend.model.UserPeer;
+import org.apache.log4j.Logger;
 
 import java.lang.ref.WeakReference;
 import java.util.Date;
@@ -18,6 +19,7 @@ import static com.tencent.seventeenShow.backend.model.UserPeer.kRESULT_UNKNOWN;
  * All Rights Reserved
  */
 public class PeerManager {
+    Logger logger = Logger.getLogger(PeerManager.class);
     private ConcurrentSkipListSet<Integer> roomIds;
 
     private ConcurrentLinkedQueue<User> userToPeer;
@@ -66,6 +68,9 @@ public class PeerManager {
             return;
 
         peer.setTotalSeconds(peer.getTotalSeconds() + 5);
+
+        logger.info("total Sec: " + peer.getTotalSeconds());
+
     }
 
     public void removePeer(User user){
