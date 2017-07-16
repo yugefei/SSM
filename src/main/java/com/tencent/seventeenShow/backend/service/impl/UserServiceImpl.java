@@ -173,5 +173,14 @@ public class UserServiceImpl  implements UserService{
     public boolean decLove(String openId) {
         return userMapper.decLove(openId) >= 1;
     }
+
+    @Override
+    public boolean addRelationShip(String openId1, String openId2) {
+        if(userMapper.containRelationship(openId1,openId2) + userMapper.containRelationship(openId2, openId1) >= 1){
+            userMapper.addRelationship(openId1, openId2);
+            return true;
+        }
+        return false;
+    }
 }
 

@@ -171,4 +171,12 @@
         from `user`
         where openId = #{openId}
     </select>
+
+    <select id="containRelationship" resultType="Long">
+        select count(1) from friend_relationship where openId1 = #{openId1} and openId2 = #{openI2}
+    </select>
+
+    <insert id="addRelationship">
+        insert into friend_relationship (openId1, openId2, create_time) values(#{openId1}, #{openId2}, NOW());
+    </insert>
 </mapper>

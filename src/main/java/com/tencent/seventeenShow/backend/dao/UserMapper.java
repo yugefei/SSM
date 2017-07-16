@@ -67,4 +67,7 @@ public interface UserMapper {
 
     Long getLoveNum(@Param("openId")String openId);
 
+    Long containRelationship(@Param("openId1")String openId1, @Param("openId2")String openId2);
+
+    int addRelationship(@Param("openId1")String openId1, @Param("openId2")String openId2);
 }

@@ -207,6 +207,11 @@ public class UserController extends BaseController {
         if(PeerManager.g().clickLike(user)){
             userService.decLove(user.getOpenId());
         }
+
+        if(PeerManager.g().matchResult(user) == kMATCHED){
+            UserPeer peer = PeerManager.g().getPeerResult(user);
+            userService.addRelationShip(peer.getA().getOpenId(), peer.getB().getOpenId());
+        }
         return new Response<LoveBalanceVo>(new LoveBalanceVo(userService.getLoveNum(user.getOpenId())));
     }
 

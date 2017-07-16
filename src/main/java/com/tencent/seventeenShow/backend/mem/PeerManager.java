@@ -62,7 +62,7 @@ public class PeerManager {
         }
     }
 
-    public void setCanDelete(User user){
+    public boolean setCanDelete(User user){
         if(peeredUsers.containsKey(user)){
             //已匹配, 返回couple
             peeredUsers.get(user).get().setCanDelete(user.getOpenId());
@@ -73,8 +73,12 @@ public class PeerManager {
 
                 this.removePeer(a);
                 this.removePeer(b);
-            }
+                return true;
+            }else
+                return false;
         }
+
+        return false;
     }
 
     public void add5s(User user){

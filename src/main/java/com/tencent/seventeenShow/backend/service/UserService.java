@@ -67,5 +67,6 @@ public interface UserService {
 
     boolean decLove(String openId);
 
+    boolean addRelationShip(String openId1, String openId2);
 
 }
