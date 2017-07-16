@@ -175,6 +175,15 @@ public class UserController extends BaseController {
         return new Response<Map<String, Long>>(ResultCode.ERROR_DEFAULT_CODE,"error");
     }
 
+    @RequestMapping(value = "/diamondBalance", method = RequestMethod.GET)
+    @ResponseBody
+    public Response<Map<String,Long>> diamondBalance(@RequestHeader("token")String token){
+        User user = userService.getResume(userService.findOpenIdByToken(token));
+        Map<String ,Long> map = new HashMap<String, Long>();
+        map.put("diamondBalance", user.getDiamondBalance());
+        return new Response<Map<String, Long>>(map);
+    }
+
     /**
      * 当前会话状态
      */
