@@ -169,7 +169,7 @@ public class UserController extends BaseController {
 
             Long diamondBalance = user.getDiamondBalance();
             Map<String, Long> map = new HashMap<String,Long>();
-            map.put("diamonBalance",diamondBalance);
+            map.put("diamondBalance",diamondBalance);
             return new Response<Map<String,Long>>(map);
         }
         return new Response<Map<String, Long>>(ResultCode.ERROR_DEFAULT_CODE,"error");
