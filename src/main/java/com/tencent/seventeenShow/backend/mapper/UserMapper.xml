@@ -152,8 +152,7 @@
         select
             u.username username,
             u.avatar avatar,
-            u.openId openId,
-            t.sig sig
+            u.openId openId
         from `user` u left join token_list t on u.openId = t.openId
         where u.openId in
             (select openId1 from friend_relationship where openId2 = #{openId}) or
