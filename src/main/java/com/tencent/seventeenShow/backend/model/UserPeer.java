@@ -66,8 +66,9 @@ public class UserPeer {
     }
 
     public void clickLike(String openId){
-        if(openId == null)
-            throw new NullPointerException("openId should not be null");
+
+//        if(openId == null)
+//            throw new NullPointerException("openId should not be null");
 
         if(openId.equals(a.getOpenId())){
             if(aClickResult != kUSER_CLICK_LIKE)
@@ -80,7 +81,7 @@ public class UserPeer {
 
             bClickResult = kUSER_CLICK_LIKE;
         }else{
-            throw new NullPointerException("the user is not in peer");
+//            throw new NullPointerException("the user is not in peer");
         }
     }
 

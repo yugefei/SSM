@@ -78,7 +78,8 @@ public class PeerManager {
     }
 
     public void clickLike(User user){
-        peeredUsers.get(user).get().clickLike(user.getOpenId());
+        if(peeredUsers.containsKey(user))
+            peeredUsers.get(user).get().clickLike(user.getOpenId());
     }
 
     public void clickDislike(User user){
