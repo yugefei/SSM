@@ -103,10 +103,10 @@ public class UserPeer {
         }
 
 
-        if(aClickResult != kUSER_UNCLICK && bClickResult != kUSER_UNCLICK){
-            this.setResultPublished(openId);
-            return kUNMATCHED;
-        }
+//        if(aClickResult != kUSER_UNCLICK && bClickResult != kUSER_UNCLICK){
+//            this.setResultPublished(openId);
+//            return kUNMATCHED;
+//        }
 
         return kRESULT_UNKNOWN;
     }

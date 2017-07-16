@@ -48,8 +48,7 @@ public class PeerManager {
             if(userToPeer.isEmpty()){ //第一次匹配, 加入匹配队列
                 userToPeer.offer(user);
                 return null;
-            }
-            else{
+            }else{
                 User u = userToPeer.poll(); //匹配队列中有用户, 返回第一个, 生成匹配对
                 UserPeer peer = new UserPeer(u, user,this.generateRoomId());
                 peeredUsers.put(u, new WeakReference<UserPeer>(peer));
@@ -80,7 +79,8 @@ public class PeerManager {
     }
 
     public void clickDislike(User user){
-        peeredUsers.get(user).get().clickDislike(user.getOpenId());
+        if(peeredUsers.containsKey(user))
+            peeredUsers.get(user).get().clickDislike(user.getOpenId());
     }
 
     public int matchResult(User user){
