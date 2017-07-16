@@ -28,8 +28,6 @@ public class UserServiceImpl  implements UserService{
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
-    private RestTemplate restTemplate;
 
     @Override
     public boolean firstLogin(String accessToken, String openId, String token, Date expire, String sig) {
@@ -174,6 +172,8 @@ public class UserServiceImpl  implements UserService{
 
     @Override
     public boolean regToHx(String openId) {
+        RestTemplate restTemplate = new RestTemplate();
+
         Map<String, String> obj = new HashMap<String, String>();
         obj.put("username", openId);
         obj.put("password", Utils.MD5(openId));
