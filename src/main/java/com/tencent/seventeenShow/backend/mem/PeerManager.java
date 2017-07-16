@@ -64,7 +64,7 @@ public class PeerManager {
 
     public void add5s(User user){
         UserPeer peer = peeredUsers.get(user).get();
-        if(peer != null)
+        if(peer == null)
             return;
 
         peer.setTotalSeconds(peer.getTotalSeconds() + 5);
